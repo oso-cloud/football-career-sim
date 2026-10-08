@@ -1,4 +1,4 @@
-<title>Football Career Reel</title>
+<title>Football Career Sim</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
@@ -198,7 +198,7 @@ button, input, select { font: inherit; color: inherit; }
 
 <main class="wrap">
   <header class="mast">
-    <div class="wordmark">Career<span>Reel</span></div>
+    <div class="wordmark">Football Career <span>Sim</span></div>
     <div class="season-tag">Season 2026–27 squads</div>
   </header>
 
@@ -276,7 +276,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
 
 </script>
 <script>
-/* Football Career Reel — career engine.
+/* Football Career Sim — career engine.
  * Pure game logic. The page supplies a `ui` object; tests supply a mock.
  * All randomness comes from one seeded generator, so a seed replays a career exactly.
  */
@@ -1297,7 +1297,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       hs.length ? "Honours: " + hs.map((h) => `${h.n}× ${h.name}`).join(", ") : "Honours: none",
       ...S.legends.map((l) => `${l} legend`),
       rec.manager ? `After retiring: ${managerLine(rec)}` : "",
-      "Can you beat my career on Career Reel?",
+      "Can you beat my career on Football Career Sim?",
     ].filter(Boolean).join("\n");
   }
   async function fontsReady() {
@@ -1330,7 +1330,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     for (let yy = 6; yy < H; yy += 12) for (let xx = 6; xx < W; xx += 12) x.fillRect(xx, yy, 2, 2);
     x.textBaseline = "alphabetic";
 
-    label("CAREER REEL", 110);
+    label("FOOTBALL CAREER SIM", 110);
     x.textAlign = "right"; label("CAN YOU BEAT IT?", 110, W - PAD); x.textAlign = "left";
 
     const name = rec.name.toUpperCase();
@@ -1458,7 +1458,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       const text = shareText(rec);
       try {
         const blob = card && await new Promise((r) => card.toBlob(r, "image/png"));
-        const file = blob && new File([blob], "career-reel.png", { type: "image/png" });
+        const file = blob && new File([blob], "football-career-sim.png", { type: "image/png" });
         if (file && navigator.canShare && navigator.canShare({ files: [file] })) await navigator.share({ files: [file], text });
         else await navigator.share({ text });
       } catch (err) {
