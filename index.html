@@ -792,7 +792,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
 
       // club trophies
       const boost = role === "Starter" && diff >= 3 ? 1.15 : 1;
-      if (T.chance((TITLE_W[club.tier] / L.titleSum) * boost * (form === "poor" ? 0.6 : 1))) s.trophies.push(`${L.name} title`);
+      if (T.chance((TITLE_W[club.tier] / L.titleSum) * boost * 0.8 * (form === "poor" ? 0.6 : 1))) s.trophies.push(`${L.name} title`);
       if (T.chance((Math.pow(TITLE_W[club.tier], 0.6) / L.cupSum) * 0.8)) s.trophies.push(L.topFlight ? "Domestic cup" : "Lower-league cup");
       if (L.topFlight) {
         const t = club.tier;
@@ -816,7 +816,8 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       // individual awards
       if (!pos.keeper) {
         const leagueGoals = s.goals * 0.72;
-        if (T.chance(clamp((leagueGoals - 17) / 14, 0, 0.8))) s.awards.push(`${L.name} Golden Boot`);
+        // Golden Boot: a 15+ league-goal season puts you in the race; a hot streak helps.
+        if (T.chance(clamp((leagueGoals - 10) / 10, 0, 0.75) * (form === "hot" ? 1.3 : 1))) s.awards.push(`${L.name} Golden Boot`);
       } else if (s.cleanSheets >= 15 && diff >= 2 && T.chance(0.35)) s.awards.push(`${L.name} Golden Glove`);
       if (role === "Starter" && diff >= 6 && +s.avg >= 7.5 && T.chance(0.35)) s.awards.push(`${L.name} Player of the Season`);
       if (age <= 21 && role === "Starter" && diff >= 0 && T.chance(0.4)) s.awards.push("Young Player of the Year");
