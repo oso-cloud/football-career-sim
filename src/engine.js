@@ -19,6 +19,9 @@
     { id: "GK", name: "Goalkeeper", keeper: true, peak: [28, 32], decline: 34 },
   ];
   const SIDES = ["Left", "Center", "Right"];
+  // Each position's top individual award (the Golden Boot equivalent). Worth extra career-score points.
+  const POS_AWARD = { ST: "Golden Boot", MID: "Playmaker of the Season", DEF: "Defender of the Season", GK: "Golden Glove" };
+  const POS_AWARD_RE = / (Golden Boot|Playmaker of the Season|Defender of the Season|Golden Glove)$/;
   const POSITIONS = [];
   for (const r of ROLES) {
     if (r.keeper) { POSITIONS.push({ id: "GK", role: "GK", name: "Goalkeeper", keeper: true, g: 0, a: 0, peak: r.peak, decline: r.decline }); continue; }
@@ -29,13 +32,15 @@
     }
   }
   // Nationality is a continent. callUp: rating needed to make a World Cup squad; wc: chance that squad wins it.
+  // Kept close together on purpose: nationality adds flavour (Europe and South America win a little more often,
+  // other squads are a little easier to make) but shouldn't decide how good a career turns out.
   const CONTINENTS = [
-    { name: "Africa", countries: [], callUp: 74, wc: 0.03 },
-    { name: "Asia", countries: ["Saudi Arabia", "Japan"], callUp: 72, wc: 0.012 },
-    { name: "Australia", countries: [], callUp: 70, wc: 0.006 },
-    { name: "Europe", countries: null, callUp: 80, wc: 0.12 },
-    { name: "North America", countries: ["USA/Canada", "Mexico"], callUp: 73, wc: 0.025 },
-    { name: "South America", countries: ["Brazil", "Argentina"], callUp: 79, wc: 0.1 },
+    { name: "Africa", countries: [], callUp: 75, wc: 0.06 },
+    { name: "Asia", countries: ["Saudi Arabia", "Japan"], callUp: 75, wc: 0.05 },
+    { name: "Australia", countries: [], callUp: 74, wc: 0.045 },
+    { name: "Europe", countries: null, callUp: 77, wc: 0.08 },
+    { name: "North America", countries: ["USA/Canada", "Mexico"], callUp: 75, wc: 0.055 },
+    { name: "South America", countries: ["Brazil", "Argentina"], callUp: 77, wc: 0.075 },
   ];
 
   const EUROPE = new Set(["England", "Spain", "Italy", "Germany", "France", "Netherlands", "Portugal", "Belgium",
@@ -432,6 +437,8 @@
 
     // --- Senior career ---
     let careerOver = null;
+    // The player can choose to retire early: the page sets a flag (checked after each season) or answers an offer screen with -2.
+    const wantsOut = () => !!(ui.wantsRetire && ui.wantsRetire());
     while (!careerOver) {
       const y = startYear(age);
       const L = club.league;
@@ -500,7 +507,10 @@
       // match rating and minutes. Around 0 is an ordinary season, +1 a standout one, -1 a quiet one.
       const per = Math.max(1, s.apps);
       const contrib = pos.keeper ? s.cleanSheets / per / 0.33 : (s.goals + s.assists) / per / Math.max(0.06, pos.g + pos.a);
-      const raw = (+s.avg - 6.45) * 1.6 + (contrib - 0.85) * 1.2 + (s.apps >= 32 ? 0.15 : s.apps < 12 ? -0.35 : 0);
+      // Low-output positions (centre-backs, holding midfielders) produce only a handful of goals and assists, so those
+      // numbers are mostly noise: lean on match ratings instead so their seasons are judged as fairly as a striker's.
+      const cw = pos.keeper ? 1 : clamp((pos.g + pos.a) / 0.3, 0.35, 1);
+      const raw = (+s.avg - 6.45) * 1.6 + (contrib - 0.85) * 1.2 * cw + (1 - cw) * 0.4 + (s.apps >= 32 ? 0.15 : s.apps < 12 ? -0.35 : 0);
       lastPerf = clamp((raw + 0.6) * 0.45, -2, 2);
       s.perf = lastPerf;
       lastStats = pos.keeper ? `${s.cleanSheets} clean sheets` : `${s.goals} goals and ${s.assists} assists`;
@@ -536,16 +546,16 @@
       if (role === "Bench" && s.trophies.length) s.events.push("Mostly watched the trophy wins from the bench");
 
       // individual awards
-      if (!pos.keeper) {
-        const leagueGoals = s.goals * 0.72;
-        // Golden Boot: a 15+ league-goal season puts you in the race; a hot streak helps.
-        if (T.chance(clamp((leagueGoals - 10) / 10, 0, 0.75) * (form === "hot" ? 1.3 : 1))) s.awards.push(`${L.name} Golden Boot`);
-      } else if (s.cleanSheets >= 15 && diff >= 2 && T.chance(0.35)) s.awards.push(`${L.name} Golden Glove`);
+      // Every position has its own "Golden Boot": strikers the Golden Boot, midfielders Playmaker of the Season,
+      // defenders Defender of the Season, keepers the Golden Glove. All four use the same odds, driven by how well
+      // you played for your position (perf already scores goals/assists/clean sheets against what the position expects).
+      const posAward = POS_AWARD[pos.role];
+      if (s.apps >= 24 && role !== "Bench" && T.chance(clamp((lastPerf - 0.5) * 0.3, 0, 0.6) * (form === "hot" ? 1.25 : 1))) s.awards.push(`${L.name} ${posAward}`);
       if (role === "Starter" && diff >= 6 && +s.avg >= 7.5 && T.chance(0.35)) s.awards.push(`${L.name} Player of the Season`);
       if (age <= 21 && role === "Starter" && diff >= 0 && T.chance(0.4)) s.awards.push("Young Player of the Year");
       if (age >= 19 && role === "Starter" && p.rating >= 89 && club.tier <= 2 && L.topFlight) {
         const b = (p.rating - 88) * 0.02 + (s.trophies.includes("Champions League") ? 0.15 : 0)
-          + (s.trophies.some((t) => t.endsWith("title")) ? 0.05 : 0) + (s.goals >= 35 ? 0.08 : 0);
+          + (s.trophies.some((t) => t.endsWith("title")) ? 0.05 : 0) + (s.awards.some((a) => a.endsWith(posAward)) ? 0.08 : 0);
         if (T.chance(clamp(b, 0, 0.3))) s.awards.push("Ballon d'Or");
       }
 
@@ -589,6 +599,7 @@
 
       await ui.season(s, rec);
       if (careerOver) break;
+      if (wantsOut()) { careerOver = `Retired early at ${age}`; break; }
 
       // Young players who don't play lose some of their ceiling.
       if (age <= 23 && role === "Bench") p.potential = Math.max(p.rating + 1, p.potential - T.rint(1, 3));
@@ -642,6 +653,7 @@
           const why = buzzWhy ? ` after ${buzzWhy}` : hotStreak >= 2 ? ` after ${hotStreak} standout seasons in a row` : lastPerf >= 0.6 ? ` after ${lastStats}` : lastPerf <= -0.6 ? ` after a quiet season (${lastStats})`
             : lastInjury ? " despite your injury" : "";
           const pick = await ui.choose({ label: `Summer ${startYear(age)} · ${who} to sign you${why}`, offers, stay, value: marketValue(), rec });
+          if (pick === -2 || wantsOut()) { age--; careerOver = `Retired early at ${age}`; break; }
           if (pick >= 0) signFor(offers[pick], false);
           else {
             const turned = `turned down ${offers.length === 1 ? "an offer" : offers.length + " offers"}`;
@@ -732,6 +744,7 @@
     const count = (n) => rec.trophies.filter((t) => t.name === n).length;
     const titles = rec.trophies.filter((t) => t.name.endsWith("title")).length;
     const bdo = rec.awards.filter((a) => a.name === "Ballon d'Or").length;
+    const posAwards = rec.awards.filter((a) => POS_AWARD_RE.test(a.name)).length;
     const p = rec.player;
     const legends = rec.legends.filter((l) => !l.revoked).map((l) => l.club);
     const names = (arr) => arr.length === 1 ? arr[0] : arr.slice(0, -1).join(", ") + " and " + arr[arr.length - 1];
@@ -741,7 +754,7 @@
     const clubs = Object.keys(clubStints).length;
     let score = (p.peak - 55) * 1.25 + titles * 3 + count("Domestic cup") * 1.5 + count("Champions League") * 6
       + count("Europa League") * 3 + count("Copa Libertadores") * 4 + count("World Cup") * 8 + bdo * 8
-      + (rec.awards.length - bdo) * 1.2 + rec.worldCups.length * 1.5 + rec.legends.filter((l) => !l.revoked).length * 4;
+      + posAwards * 3 + (rec.awards.length - bdo - posAwards) * 1.2 + rec.worldCups.length * 1.5 + rec.legends.filter((l) => !l.revoked).length * 4;
     score = clamp(Math.round(score), 1, 100);
     let verdict, line;
     if (bdo >= 2 || score >= 88) { verdict = "All-time great"; line = "They will talk about you for decades."; }
@@ -757,5 +770,5 @@
     return { score, verdict, line, titles, bdo, clubs, longest, legends, traitorTo, longestClub: Object.keys(clubStints).find((k) => clubStints[k] === longest) };
   }
 
-  root.CareerEngine = { prepare, runCareer, hashSeed, money, POSITIONS, ROLES, SIDES, CONTINENTS, EXPECTED, TOP5_IDS };
+  root.CareerEngine = { prepare, runCareer, hashSeed, money, POSITIONS, ROLES, SIDES, CONTINENTS, EXPECTED, TOP5_IDS, POS_AWARD, POS_AWARD_RE };
 })(typeof window !== "undefined" ? window : globalThis);

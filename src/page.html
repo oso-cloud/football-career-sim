@@ -186,6 +186,7 @@ button, input, select { font: inherit; color: inherit; }
 .cab b { font-variant-numeric: tabular-nums; }
 .sum-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .btn-ghost { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink); }
+.btn-ghost.armed { border-color: var(--bad); color: var(--bad); }
 .btn-primary { background: var(--invert); color: var(--invert-ink); }
 .share-panel { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
 .share-panel img { width: 100%; max-width: 380px; height: auto; border-radius: 12px; border: 1px solid var(--line); display: block; }
@@ -266,7 +267,7 @@ button, input, select { font: inherit; color: inherit; }
         <div class="stat"><b id="tTrophies">0</b><span>Trophies</span></div>
       </div>
       <div class="sum-actions" id="midActions">
-        <button class="btn btn-ghost" id="skipBtn" type="button">Skip to the end</button>
+        <button class="btn btn-ghost" id="retireBtn" type="button" hidden>Retire early</button>
       </div>
       <section class="summary" id="summary" hidden></section>
       <ol class="timeline" id="timeline"></ol>
@@ -338,7 +339,7 @@ button, input, select { font: inherit; color: inherit; }
   leagueHint();
 
   // ----- reel -----
-  let stopFn = null, fast = false;
+  let stopFn = null, fast = false, retireRequested = false;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   function show(text, sub) {
     const t = $("reelText");
@@ -486,6 +487,7 @@ button, input, select { font: inherit; color: inherit; }
       ${badges ? `<div class="badges">${badges}</div>` : ""}
       ${s.events.length ? `<ul class="events">${s.events.map((e) => `<li class="${tone(e)}">${esc(e)}</li>`).join("")}</ul>` : ""}`;
     $("timeline").prepend(li);
+    if (!s.youth) $("retireBtn").hidden = false;
     status(rec, { name: s.club, league: { name: s.league.replace(/ U18$/, "") } }, s.age);
     $("whoNow").textContent = `Age ${s.age} · ${s.club}${s.youth ? " academy" : ""}`;
     return sleep(fast ? 0 : reduced ? 250 : 750);
@@ -522,7 +524,7 @@ button, input, select { font: inherit; color: inherit; }
     const counts = new Map();
     const add = (k) => counts.set(k, (counts.get(k) || 0) + 1);
     for (const t of rec.trophies) if (t.name !== "Lower-league cup") add(t.name);
-    for (const a of rec.awards) if (a.name === "Ballon d'Or" || / Golden (Boot|Glove)$/.test(a.name)) add(a.name);
+    for (const a of rec.awards) if (a.name === "Ballon d'Or" || E.POS_AWARD_RE.test(a.name)) add(a.name);
     return [...counts.entries()].map(([name, n]) => ({ name, n }))
       .sort((a, b) => MAJOR_RANK(a.name) - MAJOR_RANK(b.name) || b.n - a.n);
   }
@@ -530,6 +532,17 @@ button, input, select { font: inherit; color: inherit; }
     const first = rec.seasons[0].year, last = rec.seasons[rec.seasons.length - 1].year + 1;
     return `${first}–${last}`;
   }
+  // Consecutive seasons at the same club, in order: [{ club, n, youth }]
+  function careerPath(rec) {
+    const out = [];
+    for (const s of rec.seasons) {
+      const last = out[out.length - 1];
+      if (last && last.club === s.club && last.youth === !!s.youth) last.n++;
+      else out.push({ club: s.club, n: 1, youth: !!s.youth });
+    }
+    return out;
+  }
+  const pathLabel = (p) => `${p.club}${p.youth ? " academy" : ""} (${p.n})`;
   function shareText(rec) {
     const S = rec.summary, hs = honours(rec);
     return [
@@ -538,6 +551,7 @@ button, input, select { font: inherit; color: inherit; }
       keeper ? `${rec.totals.cleanSheets} clean sheets · ${rec.totals.assists} assists in ${rec.totals.apps} apps`
         : `${rec.totals.goals} goals · ${rec.totals.assists} assists in ${rec.totals.apps} apps`,
       `Final market value ${E.money(rec.finalValue)} (peak ${E.money(rec.peakValue)})`,
+      "Career path: " + careerPath(rec).map(pathLabel).join(" → "),
       hs.length ? "Honours: " + hs.map((h) => `${h.n}× ${h.name}`).join(", ") : "Honours: none",
       ...S.legends.map((l) => `${l} legend`),
       rec.manager ? `After retiring: ${managerLine(rec)}` : "",
@@ -552,7 +566,37 @@ button, input, select { font: inherit; color: inherit; }
   }
   async function drawCard(rec) {
     await fontsReady();
-    const W = 1080, H = 1350, PAD = 80, IN = W - PAD * 2;
+    const W = 1080, PAD = 80, IN = W - PAD * 2;
+    // Career path: wrapped, and the card grows to fit it. Long paths step down to a smaller font with more lines
+    // before anything gets cut ("+ N more clubs").
+    const PATH_SIZES = [[34, 48, 4], [30, 42, 5], [26, 37, 6]];
+    const pathFont = (n) => `600 ${n}px "Barlow", "Segoe UI", sans-serif`;
+    let PATH_FONT, PATH_LH, pathLines;
+    {
+      const m = document.createElement("canvas").getContext("2d");
+      const parts = careerPath(rec).map(pathLabel);
+      const wrap = () => {
+        const lines = []; let cur = [];
+        const w = (arr) => m.measureText(arr.join("  →  ") + "  →").width;
+        for (const part of parts) { if (cur.length && w([...cur, part]) > IN) { lines.push(cur); cur = [part]; } else cur.push(part); }
+        if (cur.length) lines.push(cur);
+        return lines;
+      };
+      for (const [size, lh, max] of PATH_SIZES) {
+        PATH_FONT = pathFont(size); PATH_LH = lh; m.font = PATH_FONT;
+        const lines = wrap();
+        if (lines.length <= max || size === PATH_SIZES[PATH_SIZES.length - 1][0]) {
+          if (lines.length <= max) pathLines = lines.map((l, i) => l.join("  →  ") + (i < lines.length - 1 ? "  →" : ""));
+          else {
+            const shown = lines.slice(0, max - 1), extra = parts.length - shown.flat().length;
+            pathLines = [...shown.map((l) => l.join("  →  ") + "  →"), `+ ${extra} more club${extra > 1 ? "s" : ""}`];
+          }
+          break;
+        }
+      }
+    }
+    const o = 110 + pathLines.length * PATH_LH; // vertical space the path section adds
+    const H = 1350 + o;
     const c = document.createElement("canvas"); c.width = W; c.height = H;
     const x = c.getContext("2d");
     const S = rec.summary;
@@ -608,9 +652,14 @@ button, input, select { font: inherit; color: inherit; }
     fit(sub, (n) => B(n), IN, 30, 20); x.fillText(sub, PAD, 890);
     rule(922);
 
-    label("MAJOR HONOURS", 980);
+    label("CAREER PATH · SEASONS AT EACH CLUB", 980);
+    x.font = PATH_FONT;
+    pathLines.forEach((ln, i) => { x.fillStyle = /^\+ \d+ more/.test(ln) ? GREY : WHITE; x.fillText(ln, PAD, 1034 + i * PATH_LH); });
+    rule(922 + o);
+
+    label("MAJOR HONOURS", 980 + o);
     const hs = honours(rec), MAX = 3;
-    let y = 1034;
+    let y = 1034 + o;
     if (!hs.length) { x.fillStyle = WHITE; x.font = B(34, 600); x.fillText("No major honours. It happens.", PAD, y); }
     const shown = hs.length > MAX ? hs.slice(0, MAX - 1) : hs;
     for (const h of shown) {
@@ -619,15 +668,15 @@ button, input, select { font: inherit; color: inherit; }
       y += 50;
     }
     if (hs.length > MAX) { x.fillStyle = GREY; x.font = B(30); x.fillText(`+ ${hs.length - shown.length} more`, PAD + 100, y); }
-    rule(1158);
+    rule(1158 + o);
 
     const m = rec.manager;
-    label("AFTER RETIRING", 1216);
+    label("AFTER RETIRING", 1216 + o);
     if (m) {
       const head = (m.became ? m.verdict : m.role).toUpperCase();
-      x.fillStyle = WHITE; fit(head, D, IN, 64, 36); x.fillText(head, PAD, 1280);
+      x.fillStyle = WHITE; fit(head, D, IN, 64, 36); x.fillText(head, PAD, 1280 + o);
       const detail = m.became ? `${m.years} years as a manager · ${m.stints.length} club${m.stints.length > 1 ? "s" : ""} · ${m.total} trophies · ${m.winPct}% wins` : m.line;
-      x.fillStyle = GREY; fit(detail, (n) => B(n), IN, 30, 20); x.fillText(detail, PAD, 1318);
+      x.fillStyle = GREY; fit(detail, (n) => B(n), IN, 30, 20); x.fillText(detail, PAD, 1318 + o);
     }
     return c;
   }
@@ -747,7 +796,9 @@ button, input, select { font: inherit; color: inherit; }
       player = { name, pos: posId(), continent: setup.continent, league: setup.league, dream: setup.dream };
     }
     keeper = E.POSITIONS.find((p) => p.id === player.pos).keeper;
-    fast = false;
+    fast = false; retireRequested = false;
+    const rb = $("retireBtn"); rb.hidden = true; rb.disabled = false; rb.textContent = "Retire early"; rb.classList.remove("armed");
+    if (retireArmed) { clearTimeout(retireArmed); retireArmed = null; }
     $("setup").hidden = true;
     $("game").hidden = false;
     $("summary").hidden = true;
@@ -765,13 +816,24 @@ button, input, select { font: inherit; color: inherit; }
     ["tApps", "tGoals", "tAssists", "tTrophies"].forEach((id) => ($(id).textContent = "0"));
     window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
     const seed = E.hashSeed(player.name + "|" + Date.now() + "|" + Math.random());
-    await E.runCareer(player, W, seed, { spin, season, choose, offers: offersShown, status: (rec, club, age) => status(rec, club, age), finish });
+    await E.runCareer(player, W, seed, { spin, season, choose, offers: offersShown, status: (rec, club, age) => status(rec, club, age), finish, wantsRetire: () => retireRequested });
   }
 
   $("setup").addEventListener("submit", (e) => { e.preventDefault(); start(true); });
-  $("skipBtn").addEventListener("click", () => {
-    fast = true; stopFn && stopFn();
-    if (pending) { const { resolve, offers, stay } = pending; pending = null; $("offers").hidden = true; resolve(autoPick(offers, stay)); }
+  // Retire early: tap once to arm, tap again within a few seconds to end the career and see the summary.
+  let retireArmed = null;
+  $("retireBtn").addEventListener("click", () => {
+    const b = $("retireBtn");
+    if (retireRequested) return;
+    if (!retireArmed) {
+      b.textContent = "Tap again to retire"; b.classList.add("armed");
+      retireArmed = setTimeout(() => { retireArmed = null; b.textContent = "Retire early"; b.classList.remove("armed"); }, 3500);
+      return;
+    }
+    clearTimeout(retireArmed); retireArmed = null;
+    retireRequested = true;
+    b.textContent = "Retiring…"; b.disabled = true; b.classList.remove("armed");
+    if (pending) { const { resolve } = pending; pending = null; $("offers").hidden = true; resolve(-2); }
   });
 })();
 </script>
