@@ -17,7 +17,7 @@ tools/
   sim.js          ← plays hundreds of careers instantly and prints the odds
 ```
 
-`index.html` is one self-contained file. It holds the UI, the engine and the club data, with no other files to load. That's all Vercel serves.
+`index.html` is one self-contained file. It holds the UI, the engine and the club data, and it's the page players load.
 
 ## Making a change
 
