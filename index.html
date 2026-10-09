@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Football Career Sim</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -181,6 +186,7 @@ button, input, select { font: inherit; color: inherit; }
 .cab b { font-variant-numeric: tabular-nums; }
 .sum-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .btn-ghost { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink); }
+.btn-ghost.armed { border-color: var(--bad); color: var(--bad); }
 .btn-primary { background: var(--invert); color: var(--invert-ink); }
 .share-panel { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
 .share-panel img { width: 100%; max-width: 380px; height: auto; border-radius: 12px; border: 1px solid var(--line); display: block; }
@@ -261,7 +267,7 @@ button, input, select { font: inherit; color: inherit; }
         <div class="stat"><b id="tTrophies">0</b><span>Trophies</span></div>
       </div>
       <div class="sum-actions" id="midActions">
-        <button class="btn btn-ghost" id="skipBtn" type="button">Skip to the end</button>
+        <button class="btn btn-ghost" id="retireBtn" type="button" hidden>Retire early</button>
       </div>
       <section class="summary" id="summary" hidden></section>
       <ol class="timeline" id="timeline"></ol>
@@ -297,6 +303,9 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     { id: "GK", name: "Goalkeeper", keeper: true, peak: [28, 32], decline: 34 },
   ];
   const SIDES = ["Left", "Center", "Right"];
+  // Each position's top individual award (the Golden Boot equivalent). Worth extra career-score points.
+  const POS_AWARD = { ST: "Golden Boot", MID: "Playmaker of the Season", DEF: "Defender of the Season", GK: "Golden Glove" };
+  const POS_AWARD_RE = / (Golden Boot|Playmaker of the Season|Defender of the Season|Golden Glove)$/;
   const POSITIONS = [];
   for (const r of ROLES) {
     if (r.keeper) { POSITIONS.push({ id: "GK", role: "GK", name: "Goalkeeper", keeper: true, g: 0, a: 0, peak: r.peak, decline: r.decline }); continue; }
@@ -307,13 +316,15 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     }
   }
   // Nationality is a continent. callUp: rating needed to make a World Cup squad; wc: chance that squad wins it.
+  // Kept close together on purpose: nationality adds flavour (Europe and South America win a little more often,
+  // other squads are a little easier to make) but shouldn't decide how good a career turns out.
   const CONTINENTS = [
-    { name: "Africa", countries: [], callUp: 74, wc: 0.03 },
-    { name: "Asia", countries: ["Saudi Arabia", "Japan"], callUp: 72, wc: 0.012 },
-    { name: "Australia", countries: [], callUp: 70, wc: 0.006 },
-    { name: "Europe", countries: null, callUp: 80, wc: 0.12 },
-    { name: "North America", countries: ["USA/Canada", "Mexico"], callUp: 73, wc: 0.025 },
-    { name: "South America", countries: ["Brazil", "Argentina"], callUp: 79, wc: 0.1 },
+    { name: "Africa", countries: [], callUp: 75, wc: 0.06 },
+    { name: "Asia", countries: ["Saudi Arabia", "Japan"], callUp: 75, wc: 0.05 },
+    { name: "Australia", countries: [], callUp: 74, wc: 0.045 },
+    { name: "Europe", countries: null, callUp: 77, wc: 0.08 },
+    { name: "North America", countries: ["USA/Canada", "Mexico"], callUp: 75, wc: 0.055 },
+    { name: "South America", countries: ["Brazil", "Argentina"], callUp: 77, wc: 0.075 },
   ];
 
   const EUROPE = new Set(["England", "Spain", "Italy", "Germany", "France", "Netherlands", "Portugal", "Belgium",
@@ -710,6 +721,8 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
 
     // --- Senior career ---
     let careerOver = null;
+    // The player can choose to retire early: the page sets a flag (checked after each season) or answers an offer screen with -2.
+    const wantsOut = () => !!(ui.wantsRetire && ui.wantsRetire());
     while (!careerOver) {
       const y = startYear(age);
       const L = club.league;
@@ -778,7 +791,10 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       // match rating and minutes. Around 0 is an ordinary season, +1 a standout one, -1 a quiet one.
       const per = Math.max(1, s.apps);
       const contrib = pos.keeper ? s.cleanSheets / per / 0.33 : (s.goals + s.assists) / per / Math.max(0.06, pos.g + pos.a);
-      const raw = (+s.avg - 6.45) * 1.6 + (contrib - 0.85) * 1.2 + (s.apps >= 32 ? 0.15 : s.apps < 12 ? -0.35 : 0);
+      // Low-output positions (centre-backs, holding midfielders) produce only a handful of goals and assists, so those
+      // numbers are mostly noise: lean on match ratings instead so their seasons are judged as fairly as a striker's.
+      const cw = pos.keeper ? 1 : clamp((pos.g + pos.a) / 0.3, 0.35, 1);
+      const raw = (+s.avg - 6.45) * 1.6 + (contrib - 0.85) * 1.2 * cw + (1 - cw) * 0.4 + (s.apps >= 32 ? 0.15 : s.apps < 12 ? -0.35 : 0);
       lastPerf = clamp((raw + 0.6) * 0.45, -2, 2);
       s.perf = lastPerf;
       lastStats = pos.keeper ? `${s.cleanSheets} clean sheets` : `${s.goals} goals and ${s.assists} assists`;
@@ -814,16 +830,16 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       if (role === "Bench" && s.trophies.length) s.events.push("Mostly watched the trophy wins from the bench");
 
       // individual awards
-      if (!pos.keeper) {
-        const leagueGoals = s.goals * 0.72;
-        // Golden Boot: a 15+ league-goal season puts you in the race; a hot streak helps.
-        if (T.chance(clamp((leagueGoals - 10) / 10, 0, 0.75) * (form === "hot" ? 1.3 : 1))) s.awards.push(`${L.name} Golden Boot`);
-      } else if (s.cleanSheets >= 15 && diff >= 2 && T.chance(0.35)) s.awards.push(`${L.name} Golden Glove`);
+      // Every position has its own "Golden Boot": strikers the Golden Boot, midfielders Playmaker of the Season,
+      // defenders Defender of the Season, keepers the Golden Glove. All four use the same odds, driven by how well
+      // you played for your position (perf already scores goals/assists/clean sheets against what the position expects).
+      const posAward = POS_AWARD[pos.role];
+      if (s.apps >= 24 && role !== "Bench" && T.chance(clamp((lastPerf - 0.5) * 0.3, 0, 0.6) * (form === "hot" ? 1.25 : 1))) s.awards.push(`${L.name} ${posAward}`);
       if (role === "Starter" && diff >= 6 && +s.avg >= 7.5 && T.chance(0.35)) s.awards.push(`${L.name} Player of the Season`);
       if (age <= 21 && role === "Starter" && diff >= 0 && T.chance(0.4)) s.awards.push("Young Player of the Year");
       if (age >= 19 && role === "Starter" && p.rating >= 89 && club.tier <= 2 && L.topFlight) {
         const b = (p.rating - 88) * 0.02 + (s.trophies.includes("Champions League") ? 0.15 : 0)
-          + (s.trophies.some((t) => t.endsWith("title")) ? 0.05 : 0) + (s.goals >= 35 ? 0.08 : 0);
+          + (s.trophies.some((t) => t.endsWith("title")) ? 0.05 : 0) + (s.awards.some((a) => a.endsWith(posAward)) ? 0.08 : 0);
         if (T.chance(clamp(b, 0, 0.3))) s.awards.push("Ballon d'Or");
       }
 
@@ -867,6 +883,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
 
       await ui.season(s, rec);
       if (careerOver) break;
+      if (wantsOut()) { careerOver = `Retired early at ${age}`; break; }
 
       // Young players who don't play lose some of their ceiling.
       if (age <= 23 && role === "Bench") p.potential = Math.max(p.rating + 1, p.potential - T.rint(1, 3));
@@ -920,6 +937,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
           const why = buzzWhy ? ` after ${buzzWhy}` : hotStreak >= 2 ? ` after ${hotStreak} standout seasons in a row` : lastPerf >= 0.6 ? ` after ${lastStats}` : lastPerf <= -0.6 ? ` after a quiet season (${lastStats})`
             : lastInjury ? " despite your injury" : "";
           const pick = await ui.choose({ label: `Summer ${startYear(age)} · ${who} to sign you${why}`, offers, stay, value: marketValue(), rec });
+          if (pick === -2 || wantsOut()) { age--; careerOver = `Retired early at ${age}`; break; }
           if (pick >= 0) signFor(offers[pick], false);
           else {
             const turned = `turned down ${offers.length === 1 ? "an offer" : offers.length + " offers"}`;
@@ -1010,6 +1028,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     const count = (n) => rec.trophies.filter((t) => t.name === n).length;
     const titles = rec.trophies.filter((t) => t.name.endsWith("title")).length;
     const bdo = rec.awards.filter((a) => a.name === "Ballon d'Or").length;
+    const posAwards = rec.awards.filter((a) => POS_AWARD_RE.test(a.name)).length;
     const p = rec.player;
     const legends = rec.legends.filter((l) => !l.revoked).map((l) => l.club);
     const names = (arr) => arr.length === 1 ? arr[0] : arr.slice(0, -1).join(", ") + " and " + arr[arr.length - 1];
@@ -1019,7 +1038,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     const clubs = Object.keys(clubStints).length;
     let score = (p.peak - 55) * 1.25 + titles * 3 + count("Domestic cup") * 1.5 + count("Champions League") * 6
       + count("Europa League") * 3 + count("Copa Libertadores") * 4 + count("World Cup") * 8 + bdo * 8
-      + (rec.awards.length - bdo) * 1.2 + rec.worldCups.length * 1.5 + rec.legends.filter((l) => !l.revoked).length * 4;
+      + posAwards * 3 + (rec.awards.length - bdo - posAwards) * 1.2 + rec.worldCups.length * 1.5 + rec.legends.filter((l) => !l.revoked).length * 4;
     score = clamp(Math.round(score), 1, 100);
     let verdict, line;
     if (bdo >= 2 || score >= 88) { verdict = "All-time great"; line = "They will talk about you for decades."; }
@@ -1035,7 +1054,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     return { score, verdict, line, titles, bdo, clubs, longest, legends, traitorTo, longestClub: Object.keys(clubStints).find((k) => clubStints[k] === longest) };
   }
 
-  root.CareerEngine = { prepare, runCareer, hashSeed, money, POSITIONS, ROLES, SIDES, CONTINENTS, EXPECTED, TOP5_IDS };
+  root.CareerEngine = { prepare, runCareer, hashSeed, money, POSITIONS, ROLES, SIDES, CONTINENTS, EXPECTED, TOP5_IDS, POS_AWARD, POS_AWARD_RE };
 })(typeof window !== "undefined" ? window : globalThis);
 
 </script>
@@ -1095,7 +1114,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
   leagueHint();
 
   // ----- reel -----
-  let stopFn = null, fast = false;
+  let stopFn = null, fast = false, retireRequested = false;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   function show(text, sub) {
     const t = $("reelText");
@@ -1243,6 +1262,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       ${badges ? `<div class="badges">${badges}</div>` : ""}
       ${s.events.length ? `<ul class="events">${s.events.map((e) => `<li class="${tone(e)}">${esc(e)}</li>`).join("")}</ul>` : ""}`;
     $("timeline").prepend(li);
+    if (!s.youth) $("retireBtn").hidden = false;
     status(rec, { name: s.club, league: { name: s.league.replace(/ U18$/, "") } }, s.age);
     $("whoNow").textContent = `Age ${s.age} · ${s.club}${s.youth ? " academy" : ""}`;
     return sleep(fast ? 0 : reduced ? 250 : 750);
@@ -1279,7 +1299,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     const counts = new Map();
     const add = (k) => counts.set(k, (counts.get(k) || 0) + 1);
     for (const t of rec.trophies) if (t.name !== "Lower-league cup") add(t.name);
-    for (const a of rec.awards) if (a.name === "Ballon d'Or" || / Golden (Boot|Glove)$/.test(a.name)) add(a.name);
+    for (const a of rec.awards) if (a.name === "Ballon d'Or" || E.POS_AWARD_RE.test(a.name)) add(a.name);
     return [...counts.entries()].map(([name, n]) => ({ name, n }))
       .sort((a, b) => MAJOR_RANK(a.name) - MAJOR_RANK(b.name) || b.n - a.n);
   }
@@ -1287,6 +1307,17 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     const first = rec.seasons[0].year, last = rec.seasons[rec.seasons.length - 1].year + 1;
     return `${first}–${last}`;
   }
+  // Consecutive seasons at the same club, in order: [{ club, n, youth }]
+  function careerPath(rec) {
+    const out = [];
+    for (const s of rec.seasons) {
+      const last = out[out.length - 1];
+      if (last && last.club === s.club && last.youth === !!s.youth) last.n++;
+      else out.push({ club: s.club, n: 1, youth: !!s.youth });
+    }
+    return out;
+  }
+  const pathLabel = (p) => `${p.club}${p.youth ? " academy" : ""} (${p.n})`;
   function shareText(rec) {
     const S = rec.summary, hs = honours(rec);
     return [
@@ -1295,6 +1326,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       keeper ? `${rec.totals.cleanSheets} clean sheets · ${rec.totals.assists} assists in ${rec.totals.apps} apps`
         : `${rec.totals.goals} goals · ${rec.totals.assists} assists in ${rec.totals.apps} apps`,
       `Final market value ${E.money(rec.finalValue)} (peak ${E.money(rec.peakValue)})`,
+      "Career path: " + careerPath(rec).map(pathLabel).join(" → "),
       hs.length ? "Honours: " + hs.map((h) => `${h.n}× ${h.name}`).join(", ") : "Honours: none",
       ...S.legends.map((l) => `${l} legend`),
       rec.manager ? `After retiring: ${managerLine(rec)}` : "",
@@ -1309,7 +1341,37 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
   }
   async function drawCard(rec) {
     await fontsReady();
-    const W = 1080, H = 1350, PAD = 80, IN = W - PAD * 2;
+    const W = 1080, PAD = 80, IN = W - PAD * 2;
+    // Career path: wrapped, and the card grows to fit it. Long paths step down to a smaller font with more lines
+    // before anything gets cut ("+ N more clubs").
+    const PATH_SIZES = [[34, 48, 4], [30, 42, 5], [26, 37, 6]];
+    const pathFont = (n) => `600 ${n}px "Barlow", "Segoe UI", sans-serif`;
+    let PATH_FONT, PATH_LH, pathLines;
+    {
+      const m = document.createElement("canvas").getContext("2d");
+      const parts = careerPath(rec).map(pathLabel);
+      const wrap = () => {
+        const lines = []; let cur = [];
+        const w = (arr) => m.measureText(arr.join("  →  ") + "  →").width;
+        for (const part of parts) { if (cur.length && w([...cur, part]) > IN) { lines.push(cur); cur = [part]; } else cur.push(part); }
+        if (cur.length) lines.push(cur);
+        return lines;
+      };
+      for (const [size, lh, max] of PATH_SIZES) {
+        PATH_FONT = pathFont(size); PATH_LH = lh; m.font = PATH_FONT;
+        const lines = wrap();
+        if (lines.length <= max || size === PATH_SIZES[PATH_SIZES.length - 1][0]) {
+          if (lines.length <= max) pathLines = lines.map((l, i) => l.join("  →  ") + (i < lines.length - 1 ? "  →" : ""));
+          else {
+            const shown = lines.slice(0, max - 1), extra = parts.length - shown.flat().length;
+            pathLines = [...shown.map((l) => l.join("  →  ") + "  →"), `+ ${extra} more club${extra > 1 ? "s" : ""}`];
+          }
+          break;
+        }
+      }
+    }
+    const o = 110 + pathLines.length * PATH_LH; // vertical space the path section adds
+    const H = 1350 + o;
     const c = document.createElement("canvas"); c.width = W; c.height = H;
     const x = c.getContext("2d");
     const S = rec.summary;
@@ -1365,9 +1427,14 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     fit(sub, (n) => B(n), IN, 30, 20); x.fillText(sub, PAD, 890);
     rule(922);
 
-    label("MAJOR HONOURS", 980);
+    label("CAREER PATH · SEASONS AT EACH CLUB", 980);
+    x.font = PATH_FONT;
+    pathLines.forEach((ln, i) => { x.fillStyle = /^\+ \d+ more/.test(ln) ? GREY : WHITE; x.fillText(ln, PAD, 1034 + i * PATH_LH); });
+    rule(922 + o);
+
+    label("MAJOR HONOURS", 980 + o);
     const hs = honours(rec), MAX = 3;
-    let y = 1034;
+    let y = 1034 + o;
     if (!hs.length) { x.fillStyle = WHITE; x.font = B(34, 600); x.fillText("No major honours. It happens.", PAD, y); }
     const shown = hs.length > MAX ? hs.slice(0, MAX - 1) : hs;
     for (const h of shown) {
@@ -1376,15 +1443,15 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       y += 50;
     }
     if (hs.length > MAX) { x.fillStyle = GREY; x.font = B(30); x.fillText(`+ ${hs.length - shown.length} more`, PAD + 100, y); }
-    rule(1158);
+    rule(1158 + o);
 
     const m = rec.manager;
-    label("AFTER RETIRING", 1216);
+    label("AFTER RETIRING", 1216 + o);
     if (m) {
       const head = (m.became ? m.verdict : m.role).toUpperCase();
-      x.fillStyle = WHITE; fit(head, D, IN, 64, 36); x.fillText(head, PAD, 1280);
+      x.fillStyle = WHITE; fit(head, D, IN, 64, 36); x.fillText(head, PAD, 1280 + o);
       const detail = m.became ? `${m.years} years as a manager · ${m.stints.length} club${m.stints.length > 1 ? "s" : ""} · ${m.total} trophies · ${m.winPct}% wins` : m.line;
-      x.fillStyle = GREY; fit(detail, (n) => B(n), IN, 30, 20); x.fillText(detail, PAD, 1318);
+      x.fillStyle = GREY; fit(detail, (n) => B(n), IN, 30, 20); x.fillText(detail, PAD, 1318 + o);
     }
     return c;
   }
@@ -1504,7 +1571,9 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       player = { name, pos: posId(), continent: setup.continent, league: setup.league, dream: setup.dream };
     }
     keeper = E.POSITIONS.find((p) => p.id === player.pos).keeper;
-    fast = false;
+    fast = false; retireRequested = false;
+    const rb = $("retireBtn"); rb.hidden = true; rb.disabled = false; rb.textContent = "Retire early"; rb.classList.remove("armed");
+    if (retireArmed) { clearTimeout(retireArmed); retireArmed = null; }
     $("setup").hidden = true;
     $("game").hidden = false;
     $("summary").hidden = true;
@@ -1522,13 +1591,24 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     ["tApps", "tGoals", "tAssists", "tTrophies"].forEach((id) => ($(id).textContent = "0"));
     window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
     const seed = E.hashSeed(player.name + "|" + Date.now() + "|" + Math.random());
-    await E.runCareer(player, W, seed, { spin, season, choose, offers: offersShown, status: (rec, club, age) => status(rec, club, age), finish });
+    await E.runCareer(player, W, seed, { spin, season, choose, offers: offersShown, status: (rec, club, age) => status(rec, club, age), finish, wantsRetire: () => retireRequested });
   }
 
   $("setup").addEventListener("submit", (e) => { e.preventDefault(); start(true); });
-  $("skipBtn").addEventListener("click", () => {
-    fast = true; stopFn && stopFn();
-    if (pending) { const { resolve, offers, stay } = pending; pending = null; $("offers").hidden = true; resolve(autoPick(offers, stay)); }
+  // Retire early: tap once to arm, tap again within a few seconds to end the career and see the summary.
+  let retireArmed = null;
+  $("retireBtn").addEventListener("click", () => {
+    const b = $("retireBtn");
+    if (retireRequested) return;
+    if (!retireArmed) {
+      b.textContent = "Tap again to retire"; b.classList.add("armed");
+      retireArmed = setTimeout(() => { retireArmed = null; b.textContent = "Retire early"; b.classList.remove("armed"); }, 3500);
+      return;
+    }
+    clearTimeout(retireArmed); retireArmed = null;
+    retireRequested = true;
+    b.textContent = "Retiring…"; b.disabled = true; b.classList.remove("armed");
+    if (pending) { const { resolve } = pending; pending = null; $("offers").hidden = true; resolve(-2); }
   });
 })();
 </script>

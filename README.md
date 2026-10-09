@@ -43,7 +43,7 @@ python3 build.py
 node tools/sim.js 1000
 ```
 
-It prints the share of careers per verdict, plus how often players win the league, Champions League, Ballon d'Or, Golden Boot and World Cup. It also shows averages per position and the injury and form rates.
+It prints the share of careers per verdict, plus how often players win the league, Champions League, Ballon d'Or, position awards and World Cup. It also shows averages per continent and per position, and the injury and form rates.
 
 ## Where the main knobs are in `src/engine.js`
 
@@ -53,14 +53,14 @@ Search the file for these names:
 |---|---|
 | Club strength by tier (1 = elite … 5 = weakest) | `EXPECTED` |
 | League title chances by tier | `TITLE_W`, and the line that pushes `` `${L.name} title` `` |
-| Golden Boot odds | the line containing `Golden Boot` (uses league goals that season) |
+| Position awards (Golden Boot, Playmaker, Defender of the Season, Golden Glove) | `POS_AWARD`, and the line using `posAward` (same odds for every position, based on the season's performance) |
 | Ballon d'Or odds | the line containing `"Ballon d'Or"` |
 | Chance of 0 / 1 / 2 / 3 transfer offers | `OFFER_ODDS` |
 | Injury types and lengths (weeks) | `INJURIES` |
 | Promoted vs released at 18 | the `"Promoted"` / `"Released"` weights |
 | Poor form / hot streak rates | `const form = fr < 0.18 ? "poor" : fr > 0.88 ? "hot"` |
 | Retirement age | `retireAge` |
-| Continent call-up and World Cup odds | `CONTINENTS` |
+| Continent call-up and World Cup odds (kept close so nationality doesn't decide a career) | `CONTINENTS` |
 | Career verdict thresholds | `summarize` (e.g. `score >= 88` is All-time great) |
 | Manager career after retiring | `managerCareer` |
 
