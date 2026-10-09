@@ -47,7 +47,11 @@ const ui = {
     ["Domestic cup", (x) => has(x, /cup$/i)],
     ["Champions League", (x) => has(x, /^Champions League$/)],
     ["Ballon d'Or", (x) => x.summary.bdo > 0],
-    ["Golden Boot", (x) => has(x, /Golden Boot/)],
+    ["Position award (any)", (x) => x.awards.some((a) => E.POS_AWARD_RE.test(a.name))],
+    ["  Golden Boot (strikers)", (x) => has(x, /Golden Boot/)],
+    ["  Playmaker (midfielders)", (x) => has(x, /Playmaker of the Season/)],
+    ["  Defender of the Season", (x) => has(x, /Defender of the Season/)],
+    ["  Golden Glove (keepers)", (x) => has(x, /Golden Glove/)],
     ["Played a World Cup", (x) => x.worldCups.length > 0],
     ["Won a World Cup", (x) => x.worldCups.some((w) => w.won)],
     ["Club legend", (x) => x.legends.length > 0],
@@ -57,6 +61,11 @@ const ui = {
   ];
   for (const [label, f] of rows) console.log(`  ${label.padEnd(26)} ${pct(f)}`);
 
+  console.log("\nBy continent (average score · World Cup winners)");
+  for (const c of E.CONTINENTS) {
+    const g = out.filter((x) => x.continent.name === c.name);
+    if (g.length) console.log(`  ${c.name.padEnd(14)} ${(g.reduce((s, x) => s + x.summary.score, 0) / g.length).toFixed(1).padStart(5)}   ${((100 * g.filter((x) => x.worldCups.some((w) => w.won)).length) / g.length).toFixed(1)}%`);
+  }
   console.log("\nBy position (career averages)");
   for (const role of ["ST", "MID", "DEF", "GK"]) {
     const g = out.filter((x) => x.pos.role === role);
