@@ -1325,7 +1325,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
       `${rec.pos.name} · ${rec.continent.name} · ${careerYears(rec)}`,
       keeper ? `${rec.totals.cleanSheets} clean sheets · ${rec.totals.assists} assists in ${rec.totals.apps} apps`
         : `${rec.totals.goals} goals · ${rec.totals.assists} assists in ${rec.totals.apps} apps`,
-      `Final market value ${E.money(rec.finalValue)} (peak ${E.money(rec.peakValue)})`,
+      `Peak market value ${E.money(rec.peakValue)} · career earnings ${E.money(rec.earnings)}`,
       "Career path: " + careerPath(rec).map(pathLabel).join(" → "),
       hs.length ? "Honours: " + hs.map((h) => `${h.n}× ${h.name}`).join(", ") : "Honours: none",
       ...S.legends.map((l) => `${l} legend`),
@@ -1370,7 +1370,8 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
         }
       }
     }
-    const o = 110 + pathLines.length * PATH_LH; // vertical space the path section adds
+    const o2 = 160; // second row of stats
+    const o = o2 + 110 + pathLines.length * PATH_LH; // vertical space the stats row and path section add
     const H = 1350 + o;
     const c = document.createElement("canvas"); c.width = W; c.height = H;
     const x = c.getContext("2d");
@@ -1411,25 +1412,27 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
     x.fillStyle = GREY; x.font = L(34, 600); sp("3px"); x.fillText("/ 100  CAREER SCORE", PAD + sw + 20, 632); sp("0px");
     rule(672);
 
+    // Stats grid: goals/clean sheets and assists on top, peak value and career earnings below.
     const stats = [
       [keeper ? rec.totals.cleanSheets : rec.totals.goals, keeper ? "CLEAN SHEETS" : "GOALS"],
       [rec.totals.assists, "ASSISTS"],
-      [E.money(rec.finalValue), "FINAL VALUE"],
+      [E.money(rec.peakValue), "PEAK VALUE"],
+      [E.money(rec.earnings), "CAREER EARNINGS"],
     ];
-    const cw = IN / 3;
+    const cw = IN / 2;
     stats.forEach(([v, l], i) => {
-      const cx = PAD + i * cw;
-      x.fillStyle = WHITE; fit(String(v), D, cw - 28, 110, 56); x.fillText(String(v), cx, 796);
-      label(l, 840, cx);
+      const cx = PAD + (i % 2) * cw, row = Math.floor(i / 2) * o2;
+      x.fillStyle = WHITE; fit(String(v), D, cw - 28, 110, 56); x.fillText(String(v), cx, 796 + row);
+      label(l, 840 + row, cx);
     });
     x.fillStyle = GREY;
-    const sub = `${rec.totals.apps} appearances · peak value ${E.money(rec.peakValue)} · peak OVR ${rec.player.peak}`;
-    fit(sub, (n) => B(n), IN, 30, 20); x.fillText(sub, PAD, 890);
-    rule(922);
+    const sub = `${rec.totals.apps} appearances · peak OVR ${rec.player.peak} · ${rec.ended.toLowerCase()}`;
+    fit(sub, (n) => B(n), IN, 30, 20); x.fillText(sub, PAD, 890 + o2);
+    rule(922 + o2);
 
-    label("CAREER PATH · SEASONS AT EACH CLUB", 980);
+    label("CAREER PATH · SEASONS AT EACH CLUB", 980 + o2);
     x.font = PATH_FONT;
-    pathLines.forEach((ln, i) => { x.fillStyle = /^\+ \d+ more/.test(ln) ? GREY : WHITE; x.fillText(ln, PAD, 1034 + i * PATH_LH); });
+    pathLines.forEach((ln, i) => { x.fillStyle = /^\+ \d+ more/.test(ln) ? GREY : WHITE; x.fillText(ln, PAD, 1034 + o2 + i * PATH_LH); });
     rule(922 + o);
 
     label("MAJOR HONOURS", 980 + o);
@@ -1513,7 +1516,7 @@ globalThis.CAREER_DATA={"leagues":[["premier-league","Premier League","England",
         img.src = card.toDataURL("image/png");
         const hs = honours(rec);
         img.alt = `${rec.name}: ${S.verdict}, ${S.score} out of 100. ${keeper ? rec.totals.cleanSheets + " clean sheets" : rec.totals.goals + " goals"}, `
-          + `${rec.totals.assists} assists, final value ${E.money(rec.finalValue)}. ${hs.length ? hs.map((h) => `${h.n} ${h.name}`).join(", ") : "No major honours"}.`;
+          + `${rec.totals.assists} assists, peak value ${E.money(rec.peakValue)}, career earnings ${E.money(rec.earnings)}. ${hs.length ? hs.map((h) => `${h.n} ${h.name}`).join(", ") : "No major honours"}.`;
       } catch (err) {
         shareMsg("The card image couldn't be made here. You can still copy your stats.");
       }
