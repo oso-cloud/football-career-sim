@@ -1,0 +1,4652 @@
+{
+  "meta": {
+    "version": 1,
+    "season": "2026-27 (calendar-year leagues use 2026)",
+    "verifiedOn": "2026-10-07",
+    "levelNames": {
+      "1": "Elite",
+      "2": "Strong",
+      "3": "Mid-level",
+      "4": "Second divisions & smaller leagues",
+      "5": "Lower league"
+    },
+    "tierNames": {
+      "1": "Elite",
+      "2": "Strong",
+      "3": "Established",
+      "4": "Lower top-flight / big second-tier",
+      "5": "Lower league"
+    },
+    "notes": [
+      "Club tier is the club's own standing and is separate from its league's level.",
+      "Academy bonus: +3 starting rating for the top 3 academies in each league, +1 for the rest.",
+      "reserveTeam clubs are B teams: use them only for loans from their parent club, not transfers."
+    ]
+  },
+  "leagues": [
+    {
+      "id": "premier-league",
+      "name": "Premier League",
+      "country": "England",
+      "level": 1,
+      "levelName": "Elite",
+      "season": "2026-27",
+      "clubCount": 20
+    },
+    {
+      "id": "la-liga",
+      "name": "La Liga",
+      "country": "Spain",
+      "level": 1,
+      "levelName": "Elite",
+      "season": "2026-27",
+      "clubCount": 20
+    },
+    {
+      "id": "serie-a",
+      "name": "Serie A",
+      "country": "Italy",
+      "level": 1,
+      "levelName": "Elite",
+      "season": "2026-27",
+      "clubCount": 20
+    },
+    {
+      "id": "bundesliga",
+      "name": "Bundesliga",
+      "country": "Germany",
+      "level": 1,
+      "levelName": "Elite",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "ligue-1",
+      "name": "Ligue 1",
+      "country": "France",
+      "level": 1,
+      "levelName": "Elite",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "eredivisie",
+      "name": "Eredivisie",
+      "country": "Netherlands",
+      "level": 2,
+      "levelName": "Strong",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "primeira-liga",
+      "name": "Primeira Liga",
+      "country": "Portugal",
+      "level": 2,
+      "levelName": "Strong",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "belgian-pro-league",
+      "name": "Belgian Pro League",
+      "country": "Belgium",
+      "level": 2,
+      "levelName": "Strong",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "brasileirao",
+      "name": "Brazilian Série A",
+      "country": "Brazil",
+      "level": 2,
+      "levelName": "Strong",
+      "season": "2026",
+      "clubCount": 20
+    },
+    {
+      "id": "argentine-primera",
+      "name": "Argentine Primera División",
+      "country": "Argentina",
+      "level": 2,
+      "levelName": "Strong",
+      "season": "2026",
+      "clubCount": 30
+    },
+    {
+      "id": "super-lig",
+      "name": "Süper Lig",
+      "country": "Turkey",
+      "level": 2,
+      "levelName": "Strong",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "saudi-pro-league",
+      "name": "Saudi Pro League",
+      "country": "Saudi Arabia",
+      "level": 2,
+      "levelName": "Strong",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "championship",
+      "name": "EFL Championship",
+      "country": "England",
+      "level": 3,
+      "levelName": "Mid-level",
+      "season": "2026-27",
+      "clubCount": 24
+    },
+    {
+      "id": "scottish-premiership",
+      "name": "Scottish Premiership",
+      "country": "Scotland",
+      "level": 3,
+      "levelName": "Mid-level",
+      "season": "2026-27",
+      "clubCount": 12
+    },
+    {
+      "id": "mls",
+      "name": "MLS",
+      "country": "USA/Canada",
+      "level": 3,
+      "levelName": "Mid-level",
+      "season": "2026",
+      "clubCount": 30
+    },
+    {
+      "id": "liga-mx",
+      "name": "Liga MX",
+      "country": "Mexico",
+      "level": 3,
+      "levelName": "Mid-level",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "austrian-bundesliga",
+      "name": "Austrian Bundesliga",
+      "country": "Austria",
+      "level": 3,
+      "levelName": "Mid-level",
+      "season": "2026-27",
+      "clubCount": 12
+    },
+    {
+      "id": "swiss-super-league",
+      "name": "Swiss Super League",
+      "country": "Switzerland",
+      "level": 3,
+      "levelName": "Mid-level",
+      "season": "2026-27",
+      "clubCount": 12
+    },
+    {
+      "id": "danish-superliga",
+      "name": "Danish Superliga",
+      "country": "Denmark",
+      "level": 3,
+      "levelName": "Mid-level",
+      "season": "2026-27",
+      "clubCount": 12
+    },
+    {
+      "id": "greek-super-league",
+      "name": "Greek Super League",
+      "country": "Greece",
+      "level": 3,
+      "levelName": "Mid-level",
+      "season": "2026-27",
+      "clubCount": 14
+    },
+    {
+      "id": "czech-first-league",
+      "name": "Czech First League",
+      "country": "Czech Republic",
+      "level": 3,
+      "levelName": "Mid-level",
+      "season": "2026-27",
+      "clubCount": 16
+    },
+    {
+      "id": "2-bundesliga",
+      "name": "2. Bundesliga",
+      "country": "Germany",
+      "level": 4,
+      "levelName": "Second divisions & smaller leagues",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "serie-b",
+      "name": "Serie B",
+      "country": "Italy",
+      "level": 4,
+      "levelName": "Second divisions & smaller leagues",
+      "season": "2026-27",
+      "clubCount": 20
+    },
+    {
+      "id": "segunda-division",
+      "name": "Segunda División",
+      "country": "Spain",
+      "level": 4,
+      "levelName": "Second divisions & smaller leagues",
+      "season": "2026-27",
+      "clubCount": 22
+    },
+    {
+      "id": "ligue-2",
+      "name": "Ligue 2",
+      "country": "France",
+      "level": 4,
+      "levelName": "Second divisions & smaller leagues",
+      "season": "2026-27",
+      "clubCount": 18
+    },
+    {
+      "id": "eliteserien",
+      "name": "Eliteserien",
+      "country": "Norway",
+      "level": 4,
+      "levelName": "Second divisions & smaller leagues",
+      "season": "2026",
+      "clubCount": 16
+    },
+    {
+      "id": "allsvenskan",
+      "name": "Allsvenskan",
+      "country": "Sweden",
+      "level": 4,
+      "levelName": "Second divisions & smaller leagues",
+      "season": "2026",
+      "clubCount": 16
+    },
+    {
+      "id": "j1-league",
+      "name": "J1 League",
+      "country": "Japan",
+      "level": 4,
+      "levelName": "Second divisions & smaller leagues",
+      "season": "2026-27",
+      "clubCount": 20
+    },
+    {
+      "id": "league-one",
+      "name": "EFL League One",
+      "country": "England",
+      "level": 5,
+      "levelName": "Lower league",
+      "season": "2026-27",
+      "clubCount": 24
+    },
+    {
+      "id": "league-two",
+      "name": "EFL League Two",
+      "country": "England",
+      "level": 5,
+      "levelName": "Lower league",
+      "season": "2026-27",
+      "clubCount": 24
+    }
+  ],
+  "academies": [
+    {
+      "clubId": "chelsea",
+      "name": "Chelsea",
+      "leagueId": "premier-league",
+      "rank": 1
+    },
+    {
+      "clubId": "manchester-city",
+      "name": "Manchester City",
+      "leagueId": "premier-league",
+      "rank": 2
+    },
+    {
+      "clubId": "manchester-united",
+      "name": "Manchester United",
+      "leagueId": "premier-league",
+      "rank": 3
+    },
+    {
+      "clubId": "arsenal",
+      "name": "Arsenal",
+      "leagueId": "premier-league",
+      "rank": 4
+    },
+    {
+      "clubId": "liverpool",
+      "name": "Liverpool",
+      "leagueId": "premier-league",
+      "rank": 5
+    },
+    {
+      "clubId": "tottenham-hotspur",
+      "name": "Tottenham Hotspur",
+      "leagueId": "premier-league",
+      "rank": 6
+    },
+    {
+      "clubId": "fulham",
+      "name": "Fulham",
+      "leagueId": "premier-league",
+      "rank": 7
+    },
+    {
+      "clubId": "everton",
+      "name": "Everton",
+      "leagueId": "premier-league",
+      "rank": 8
+    },
+    {
+      "clubId": "barcelona",
+      "name": "Barcelona",
+      "leagueId": "la-liga",
+      "rank": 1
+    },
+    {
+      "clubId": "real-madrid",
+      "name": "Real Madrid",
+      "leagueId": "la-liga",
+      "rank": 2
+    },
+    {
+      "clubId": "athletic-bilbao",
+      "name": "Athletic Bilbao",
+      "leagueId": "la-liga",
+      "rank": 3
+    },
+    {
+      "clubId": "real-sociedad",
+      "name": "Real Sociedad",
+      "leagueId": "la-liga",
+      "rank": 4
+    },
+    {
+      "clubId": "villarreal",
+      "name": "Villarreal",
+      "leagueId": "la-liga",
+      "rank": 5
+    },
+    {
+      "clubId": "valencia",
+      "name": "Valencia",
+      "leagueId": "la-liga",
+      "rank": 6
+    },
+    {
+      "clubId": "atletico-madrid",
+      "name": "Atlético Madrid",
+      "leagueId": "la-liga",
+      "rank": 7
+    },
+    {
+      "clubId": "sevilla",
+      "name": "Sevilla",
+      "leagueId": "la-liga",
+      "rank": 8
+    },
+    {
+      "clubId": "atalanta",
+      "name": "Atalanta",
+      "leagueId": "serie-a",
+      "rank": 1
+    },
+    {
+      "clubId": "inter-milan",
+      "name": "Inter Milan",
+      "leagueId": "serie-a",
+      "rank": 2
+    },
+    {
+      "clubId": "roma",
+      "name": "Roma",
+      "leagueId": "serie-a",
+      "rank": 3
+    },
+    {
+      "clubId": "juventus",
+      "name": "Juventus",
+      "leagueId": "serie-a",
+      "rank": 4
+    },
+    {
+      "clubId": "ac-milan",
+      "name": "AC Milan",
+      "leagueId": "serie-a",
+      "rank": 5
+    },
+    {
+      "clubId": "fiorentina",
+      "name": "Fiorentina",
+      "leagueId": "serie-a",
+      "rank": 6
+    },
+    {
+      "clubId": "torino",
+      "name": "Torino",
+      "leagueId": "serie-a",
+      "rank": 7
+    },
+    {
+      "clubId": "genoa",
+      "name": "Genoa",
+      "leagueId": "serie-a",
+      "rank": 8
+    },
+    {
+      "clubId": "bayern-munich",
+      "name": "Bayern Munich",
+      "leagueId": "bundesliga",
+      "rank": 1
+    },
+    {
+      "clubId": "borussia-dortmund",
+      "name": "Borussia Dortmund",
+      "leagueId": "bundesliga",
+      "rank": 2
+    },
+    {
+      "clubId": "vfb-stuttgart",
+      "name": "VfB Stuttgart",
+      "leagueId": "bundesliga",
+      "rank": 3
+    },
+    {
+      "clubId": "tsg-hoffenheim",
+      "name": "TSG Hoffenheim",
+      "leagueId": "bundesliga",
+      "rank": 4
+    },
+    {
+      "clubId": "sc-freiburg",
+      "name": "SC Freiburg",
+      "leagueId": "bundesliga",
+      "rank": 5
+    },
+    {
+      "clubId": "bayer-leverkusen",
+      "name": "Bayer Leverkusen",
+      "leagueId": "bundesliga",
+      "rank": 6
+    },
+    {
+      "clubId": "rb-leipzig",
+      "name": "RB Leipzig",
+      "leagueId": "bundesliga",
+      "rank": 7
+    },
+    {
+      "clubId": "schalke-04",
+      "name": "Schalke 04",
+      "leagueId": "bundesliga",
+      "rank": 8
+    },
+    {
+      "clubId": "lyon",
+      "name": "Lyon",
+      "leagueId": "ligue-1",
+      "rank": 1
+    },
+    {
+      "clubId": "rennes",
+      "name": "Rennes",
+      "leagueId": "ligue-1",
+      "rank": 2
+    },
+    {
+      "clubId": "paris-saint-germain",
+      "name": "Paris Saint-Germain",
+      "leagueId": "ligue-1",
+      "rank": 3
+    },
+    {
+      "clubId": "monaco",
+      "name": "Monaco",
+      "leagueId": "ligue-1",
+      "rank": 4
+    },
+    {
+      "clubId": "lille",
+      "name": "Lille",
+      "leagueId": "ligue-1",
+      "rank": 5
+    },
+    {
+      "clubId": "auxerre",
+      "name": "Auxerre",
+      "leagueId": "ligue-1",
+      "rank": 6
+    },
+    {
+      "clubId": "lens",
+      "name": "Lens",
+      "leagueId": "ligue-1",
+      "rank": 7
+    },
+    {
+      "clubId": "toulouse",
+      "name": "Toulouse",
+      "leagueId": "ligue-1",
+      "rank": 8
+    }
+  ],
+  "clubs": [
+    {
+      "id": "arsenal",
+      "name": "Arsenal",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 1,
+      "academy": {
+        "rank": 4,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "manchester-city",
+      "name": "Manchester City",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 1,
+      "academy": {
+        "rank": 2,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "liverpool",
+      "name": "Liverpool",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 1,
+      "academy": {
+        "rank": 5,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "chelsea",
+      "name": "Chelsea",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 1,
+      "academy": {
+        "rank": 1,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "manchester-united",
+      "name": "Manchester United",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 1,
+      "academy": {
+        "rank": 3,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "tottenham-hotspur",
+      "name": "Tottenham Hotspur",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 2,
+      "academy": {
+        "rank": 6,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "newcastle-united",
+      "name": "Newcastle United",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 2
+    },
+    {
+      "id": "aston-villa",
+      "name": "Aston Villa",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 2
+    },
+    {
+      "id": "brighton-hove-albion",
+      "name": "Brighton & Hove Albion",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 2
+    },
+    {
+      "id": "everton",
+      "name": "Everton",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 3,
+      "academy": {
+        "rank": 8,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "fulham",
+      "name": "Fulham",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 3,
+      "academy": {
+        "rank": 7,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "crystal-palace",
+      "name": "Crystal Palace",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 3
+    },
+    {
+      "id": "brentford",
+      "name": "Brentford",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 3
+    },
+    {
+      "id": "bournemouth",
+      "name": "Bournemouth",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 3
+    },
+    {
+      "id": "nottingham-forest",
+      "name": "Nottingham Forest",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 3
+    },
+    {
+      "id": "leeds-united",
+      "name": "Leeds United",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 3
+    },
+    {
+      "id": "sunderland",
+      "name": "Sunderland",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 3
+    },
+    {
+      "id": "coventry-city",
+      "name": "Coventry City",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "ipswich-town",
+      "name": "Ipswich Town",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "hull-city",
+      "name": "Hull City",
+      "leagueId": "premier-league",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "real-madrid",
+      "name": "Real Madrid",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 1,
+      "academy": {
+        "rank": 2,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "barcelona",
+      "name": "Barcelona",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 1,
+      "academy": {
+        "rank": 1,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "atletico-madrid",
+      "name": "Atlético Madrid",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 1,
+      "academy": {
+        "rank": 7,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "athletic-bilbao",
+      "name": "Athletic Bilbao",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 2,
+      "academy": {
+        "rank": 3,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "real-sociedad",
+      "name": "Real Sociedad",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 2,
+      "academy": {
+        "rank": 4,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "villarreal",
+      "name": "Villarreal",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 2,
+      "academy": {
+        "rank": 5,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "real-betis",
+      "name": "Real Betis",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 2
+    },
+    {
+      "id": "sevilla",
+      "name": "Sevilla",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 2,
+      "academy": {
+        "rank": 8,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "valencia",
+      "name": "Valencia",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 3,
+      "academy": {
+        "rank": 6,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "celta-vigo",
+      "name": "Celta Vigo",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 3
+    },
+    {
+      "id": "osasuna",
+      "name": "Osasuna",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 3
+    },
+    {
+      "id": "getafe",
+      "name": "Getafe",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 3
+    },
+    {
+      "id": "rayo-vallecano",
+      "name": "Rayo Vallecano",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 3
+    },
+    {
+      "id": "espanyol",
+      "name": "Espanyol",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 3
+    },
+    {
+      "id": "alaves",
+      "name": "Alavés",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 3
+    },
+    {
+      "id": "elche",
+      "name": "Elche",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "levante",
+      "name": "Levante",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "racing-santander",
+      "name": "Racing Santander",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "deportivo-a-coruna",
+      "name": "Deportivo A Coruña",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "malaga",
+      "name": "Málaga",
+      "leagueId": "la-liga",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "inter-milan",
+      "name": "Inter Milan",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 1,
+      "academy": {
+        "rank": 2,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "juventus",
+      "name": "Juventus",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 1,
+      "academy": {
+        "rank": 4,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "ac-milan",
+      "name": "AC Milan",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 1,
+      "academy": {
+        "rank": 5,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "napoli",
+      "name": "Napoli",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 1
+    },
+    {
+      "id": "atalanta",
+      "name": "Atalanta",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 2,
+      "academy": {
+        "rank": 1,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "roma",
+      "name": "Roma",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 2,
+      "academy": {
+        "rank": 3,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "lazio",
+      "name": "Lazio",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 2
+    },
+    {
+      "id": "como",
+      "name": "Como",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 2
+    },
+    {
+      "id": "bologna",
+      "name": "Bologna",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 2
+    },
+    {
+      "id": "fiorentina",
+      "name": "Fiorentina",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 2,
+      "academy": {
+        "rank": 6,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "torino",
+      "name": "Torino",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 3,
+      "academy": {
+        "rank": 7,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "udinese",
+      "name": "Udinese",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 3
+    },
+    {
+      "id": "genoa",
+      "name": "Genoa",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 3,
+      "academy": {
+        "rank": 8,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "sassuolo",
+      "name": "Sassuolo",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 3
+    },
+    {
+      "id": "parma",
+      "name": "Parma",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 3
+    },
+    {
+      "id": "cagliari",
+      "name": "Cagliari",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 3
+    },
+    {
+      "id": "lecce",
+      "name": "Lecce",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "venezia",
+      "name": "Venezia",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "frosinone",
+      "name": "Frosinone",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "monza",
+      "name": "Monza",
+      "leagueId": "serie-a",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "bayern-munich",
+      "name": "Bayern Munich",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 1,
+      "academy": {
+        "rank": 1,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "borussia-dortmund",
+      "name": "Borussia Dortmund",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 1,
+      "academy": {
+        "rank": 2,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "bayer-leverkusen",
+      "name": "Bayer Leverkusen",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 2,
+      "academy": {
+        "rank": 6,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "rb-leipzig",
+      "name": "RB Leipzig",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 2,
+      "academy": {
+        "rank": 7,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "vfb-stuttgart",
+      "name": "VfB Stuttgart",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 2,
+      "academy": {
+        "rank": 3,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "eintracht-frankfurt",
+      "name": "Eintracht Frankfurt",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 2
+    },
+    {
+      "id": "sc-freiburg",
+      "name": "SC Freiburg",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3,
+      "academy": {
+        "rank": 5,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "tsg-hoffenheim",
+      "name": "TSG Hoffenheim",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3,
+      "academy": {
+        "rank": 4,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "mainz-05",
+      "name": "Mainz 05",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3
+    },
+    {
+      "id": "borussia-monchengladbach",
+      "name": "Borussia Mönchengladbach",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3
+    },
+    {
+      "id": "werder-bremen",
+      "name": "Werder Bremen",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3
+    },
+    {
+      "id": "fc-augsburg",
+      "name": "FC Augsburg",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3
+    },
+    {
+      "id": "union-berlin",
+      "name": "Union Berlin",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3
+    },
+    {
+      "id": "1-fc-koln",
+      "name": "1. FC Köln",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3
+    },
+    {
+      "id": "hamburger-sv",
+      "name": "Hamburger SV",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3
+    },
+    {
+      "id": "schalke-04",
+      "name": "Schalke 04",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 3,
+      "academy": {
+        "rank": 8,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "sv-elversberg",
+      "name": "SV Elversberg",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "sc-paderborn",
+      "name": "SC Paderborn",
+      "leagueId": "bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "paris-saint-germain",
+      "name": "Paris Saint-Germain",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 1,
+      "academy": {
+        "rank": 3,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "marseille",
+      "name": "Marseille",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 2
+    },
+    {
+      "id": "monaco",
+      "name": "Monaco",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 2,
+      "academy": {
+        "rank": 4,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "lyon",
+      "name": "Lyon",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 2,
+      "academy": {
+        "rank": 1,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "lille",
+      "name": "Lille",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 2,
+      "academy": {
+        "rank": 5,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "lens",
+      "name": "Lens",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 2,
+      "academy": {
+        "rank": 7,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "rennes",
+      "name": "Rennes",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 2,
+      "academy": {
+        "rank": 2,
+        "bonus": 3
+      }
+    },
+    {
+      "id": "nice",
+      "name": "Nice",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 3
+    },
+    {
+      "id": "strasbourg",
+      "name": "Strasbourg",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 3
+    },
+    {
+      "id": "toulouse",
+      "name": "Toulouse",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 3,
+      "academy": {
+        "rank": 8,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "brest",
+      "name": "Brest",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 3
+    },
+    {
+      "id": "paris-fc",
+      "name": "Paris FC",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 3
+    },
+    {
+      "id": "auxerre",
+      "name": "Auxerre",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 3,
+      "academy": {
+        "rank": 6,
+        "bonus": 1
+      }
+    },
+    {
+      "id": "lorient",
+      "name": "Lorient",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 3
+    },
+    {
+      "id": "le-havre",
+      "name": "Le Havre",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 3
+    },
+    {
+      "id": "angers",
+      "name": "Angers",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 3
+    },
+    {
+      "id": "troyes",
+      "name": "Troyes",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 4
+    },
+    {
+      "id": "le-mans",
+      "name": "Le Mans",
+      "leagueId": "ligue-1",
+      "country": "France",
+      "tier": 4
+    },
+    {
+      "id": "psv-eindhoven",
+      "name": "PSV Eindhoven",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 2
+    },
+    {
+      "id": "ajax",
+      "name": "Ajax",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 2
+    },
+    {
+      "id": "feyenoord",
+      "name": "Feyenoord",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 2
+    },
+    {
+      "id": "az",
+      "name": "AZ",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 3
+    },
+    {
+      "id": "twente",
+      "name": "Twente",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 3
+    },
+    {
+      "id": "utrecht",
+      "name": "Utrecht",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 3
+    },
+    {
+      "id": "nec",
+      "name": "NEC",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "heerenveen",
+      "name": "Heerenveen",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "groningen",
+      "name": "Groningen",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "go-ahead-eagles",
+      "name": "Go Ahead Eagles",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "sparta-rotterdam",
+      "name": "Sparta Rotterdam",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "fortuna-sittard",
+      "name": "Fortuna Sittard",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "excelsior",
+      "name": "Excelsior",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "pec-zwolle",
+      "name": "PEC Zwolle",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "telstar",
+      "name": "Telstar",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "ado-den-haag",
+      "name": "ADO Den Haag",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "cambuur",
+      "name": "Cambuur",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "willem-ii",
+      "name": "Willem II",
+      "leagueId": "eredivisie",
+      "country": "Netherlands",
+      "tier": 4
+    },
+    {
+      "id": "benfica",
+      "name": "Benfica",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 2
+    },
+    {
+      "id": "porto",
+      "name": "Porto",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 2
+    },
+    {
+      "id": "sporting-cp",
+      "name": "Sporting CP",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 2
+    },
+    {
+      "id": "braga",
+      "name": "Braga",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 3
+    },
+    {
+      "id": "vitoria-de-guimaraes",
+      "name": "Vitória de Guimarães",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 3
+    },
+    {
+      "id": "santa-clara",
+      "name": "Santa Clara",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "famalicao",
+      "name": "Famalicão",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "gil-vicente",
+      "name": "Gil Vicente",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "arouca",
+      "name": "Arouca",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "moreirense",
+      "name": "Moreirense",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "rio-ave",
+      "name": "Rio Ave",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "estoril-praia",
+      "name": "Estoril Praia",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "casa-pia",
+      "name": "Casa Pia",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "estrela-da-amadora",
+      "name": "Estrela da Amadora",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "alverca",
+      "name": "Alverca",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "nacional",
+      "name": "Nacional",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "maritimo",
+      "name": "Marítimo",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "academico-de-viseu",
+      "name": "Académico de Viseu",
+      "leagueId": "primeira-liga",
+      "country": "Portugal",
+      "tier": 4
+    },
+    {
+      "id": "club-brugge",
+      "name": "Club Brugge",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 3
+    },
+    {
+      "id": "anderlecht",
+      "name": "Anderlecht",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 3
+    },
+    {
+      "id": "union-sg",
+      "name": "Union SG",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 3
+    },
+    {
+      "id": "genk",
+      "name": "Genk",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 3
+    },
+    {
+      "id": "gent",
+      "name": "Gent",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 3
+    },
+    {
+      "id": "antwerp",
+      "name": "Antwerp",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 3
+    },
+    {
+      "id": "standard-liege",
+      "name": "Standard Liège",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 3
+    },
+    {
+      "id": "charleroi",
+      "name": "Charleroi",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "mechelen",
+      "name": "Mechelen",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "cercle-brugge",
+      "name": "Cercle Brugge",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "westerlo",
+      "name": "Westerlo",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "sint-truiden",
+      "name": "Sint-Truiden",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "oh-leuven",
+      "name": "OH Leuven",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "zulte-waregem",
+      "name": "Zulte Waregem",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "kortrijk",
+      "name": "Kortrijk",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "beveren",
+      "name": "Beveren",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "lommel",
+      "name": "Lommel",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "la-louviere",
+      "name": "La Louvière",
+      "leagueId": "belgian-pro-league",
+      "country": "Belgium",
+      "tier": 4
+    },
+    {
+      "id": "flamengo",
+      "name": "Flamengo",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 2
+    },
+    {
+      "id": "palmeiras",
+      "name": "Palmeiras",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 2
+    },
+    {
+      "id": "botafogo",
+      "name": "Botafogo",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "sao-paulo",
+      "name": "São Paulo",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "corinthians",
+      "name": "Corinthians",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "atletico-mineiro",
+      "name": "Atlético Mineiro",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "fluminense",
+      "name": "Fluminense",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "internacional",
+      "name": "Internacional",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "gremio",
+      "name": "Grêmio",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "cruzeiro",
+      "name": "Cruzeiro",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "santos",
+      "name": "Santos",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "bahia",
+      "name": "Bahia",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "vasco-da-gama",
+      "name": "Vasco da Gama",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "red-bull-bragantino",
+      "name": "Red Bull Bragantino",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "athletico-paranaense",
+      "name": "Athletico Paranaense",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 3
+    },
+    {
+      "id": "mirassol",
+      "name": "Mirassol",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 4
+    },
+    {
+      "id": "vitoria",
+      "name": "Vitória",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 4
+    },
+    {
+      "id": "chapecoense",
+      "name": "Chapecoense",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 4
+    },
+    {
+      "id": "coritiba",
+      "name": "Coritiba",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 4
+    },
+    {
+      "id": "remo",
+      "name": "Remo",
+      "leagueId": "brasileirao",
+      "country": "Brazil",
+      "tier": 4
+    },
+    {
+      "id": "river-plate",
+      "name": "River Plate",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 2
+    },
+    {
+      "id": "boca-juniors",
+      "name": "Boca Juniors",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 2
+    },
+    {
+      "id": "racing-club",
+      "name": "Racing Club",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "independiente",
+      "name": "Independiente",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "san-lorenzo",
+      "name": "San Lorenzo",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "estudiantes-de-la-plata",
+      "name": "Estudiantes de La Plata",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "velez-sarsfield",
+      "name": "Vélez Sarsfield",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "talleres",
+      "name": "Talleres",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "rosario-central",
+      "name": "Rosario Central",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "lanus",
+      "name": "Lanús",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "argentinos-juniors",
+      "name": "Argentinos Juniors",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "newell-s-old-boys",
+      "name": "Newell's Old Boys",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "huracan",
+      "name": "Huracán",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 3
+    },
+    {
+      "id": "defensa-y-justicia",
+      "name": "Defensa y Justicia",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "platense",
+      "name": "Platense",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "tigre",
+      "name": "Tigre",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "belgrano",
+      "name": "Belgrano",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "union-de-santa-fe",
+      "name": "Unión de Santa Fe",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "banfield",
+      "name": "Banfield",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "gimnasia-la-plata",
+      "name": "Gimnasia La Plata",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "instituto",
+      "name": "Instituto",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "barracas-central",
+      "name": "Barracas Central",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "deportivo-riestra",
+      "name": "Deportivo Riestra",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "central-cordoba",
+      "name": "Central Córdoba",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "independiente-rivadavia",
+      "name": "Independiente Rivadavia",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "gimnasia-de-mendoza",
+      "name": "Gimnasia de Mendoza",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "atletico-tucuman",
+      "name": "Atlético Tucumán",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "sarmiento",
+      "name": "Sarmiento",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "aldosivi",
+      "name": "Aldosivi",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "estudiantes-de-rio-cuarto",
+      "name": "Estudiantes de Río Cuarto",
+      "leagueId": "argentine-primera",
+      "country": "Argentina",
+      "tier": 4
+    },
+    {
+      "id": "galatasaray",
+      "name": "Galatasaray",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 2
+    },
+    {
+      "id": "fenerbahce",
+      "name": "Fenerbahçe",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 2
+    },
+    {
+      "id": "besiktas",
+      "name": "Beşiktaş",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 3
+    },
+    {
+      "id": "trabzonspor",
+      "name": "Trabzonspor",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 3
+    },
+    {
+      "id": "basaksehir",
+      "name": "Başakşehir",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 3
+    },
+    {
+      "id": "samsunspor",
+      "name": "Samsunspor",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 3
+    },
+    {
+      "id": "goztepe",
+      "name": "Göztepe",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 3
+    },
+    {
+      "id": "kasmpasa",
+      "name": "Kasımpaşa",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "konyaspor",
+      "name": "Konyaspor",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "alanyaspor",
+      "name": "Alanyaspor",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "rizespor",
+      "name": "Rizespor",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "gaziantep",
+      "name": "Gaziantep",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "eyupspor",
+      "name": "Eyüpspor",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "kocaelispor",
+      "name": "Kocaelispor",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "genclerbirligi",
+      "name": "Gençlerbirliği",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "amedspor",
+      "name": "Amedspor",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "corum",
+      "name": "Çorum",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "erzurumspor",
+      "name": "Erzurumspor",
+      "leagueId": "super-lig",
+      "country": "Turkey",
+      "tier": 4
+    },
+    {
+      "id": "al-hilal",
+      "name": "Al-Hilal",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 2
+    },
+    {
+      "id": "al-nassr",
+      "name": "Al-Nassr",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 2
+    },
+    {
+      "id": "al-ittihad",
+      "name": "Al-Ittihad",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 2
+    },
+    {
+      "id": "al-ahli",
+      "name": "Al-Ahli",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 2
+    },
+    {
+      "id": "al-qadsiah",
+      "name": "Al-Qadsiah",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 3
+    },
+    {
+      "id": "al-shabab",
+      "name": "Al-Shabab",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 3
+    },
+    {
+      "id": "al-ettifaq",
+      "name": "Al-Ettifaq",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 3
+    },
+    {
+      "id": "al-taawoun",
+      "name": "Al-Taawoun",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 3
+    },
+    {
+      "id": "al-fateh",
+      "name": "Al-Fateh",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "al-fayha",
+      "name": "Al-Fayha",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "al-khaleej",
+      "name": "Al-Khaleej",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "al-kholood",
+      "name": "Al-Kholood",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "al-riyadh",
+      "name": "Al-Riyadh",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "al-hazem",
+      "name": "Al-Hazem",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "neom",
+      "name": "Neom",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "al-faisaly",
+      "name": "Al-Faisaly",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "abha",
+      "name": "Abha",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "al-diriyah",
+      "name": "Al-Diriyah",
+      "leagueId": "saudi-pro-league",
+      "country": "Saudi Arabia",
+      "tier": 4
+    },
+    {
+      "id": "west-ham-united",
+      "name": "West Ham United",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 3
+    },
+    {
+      "id": "wolverhampton-wanderers",
+      "name": "Wolverhampton Wanderers",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 3
+    },
+    {
+      "id": "southampton",
+      "name": "Southampton",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 3
+    },
+    {
+      "id": "burnley",
+      "name": "Burnley",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "sheffield-united",
+      "name": "Sheffield United",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "middlesbrough",
+      "name": "Middlesbrough",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "norwich-city",
+      "name": "Norwich City",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "west-bromwich-albion",
+      "name": "West Bromwich Albion",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "swansea-city",
+      "name": "Swansea City",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "stoke-city",
+      "name": "Stoke City",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "watford",
+      "name": "Watford",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "millwall",
+      "name": "Millwall",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "bristol-city",
+      "name": "Bristol City",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "queens-park-rangers",
+      "name": "Queens Park Rangers",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "blackburn-rovers",
+      "name": "Blackburn Rovers",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "birmingham-city",
+      "name": "Birmingham City",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "derby-county",
+      "name": "Derby County",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "preston-north-end",
+      "name": "Preston North End",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "cardiff-city",
+      "name": "Cardiff City",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "portsmouth",
+      "name": "Portsmouth",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "wrexham",
+      "name": "Wrexham",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "charlton-athletic",
+      "name": "Charlton Athletic",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "bolton-wanderers",
+      "name": "Bolton Wanderers",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "lincoln-city",
+      "name": "Lincoln City",
+      "leagueId": "championship",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "celtic",
+      "name": "Celtic",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 3
+    },
+    {
+      "id": "rangers",
+      "name": "Rangers",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 3
+    },
+    {
+      "id": "heart-of-midlothian",
+      "name": "Heart of Midlothian",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 4
+    },
+    {
+      "id": "aberdeen",
+      "name": "Aberdeen",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 4
+    },
+    {
+      "id": "hibernian",
+      "name": "Hibernian",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 4
+    },
+    {
+      "id": "dundee-united",
+      "name": "Dundee United",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 5
+    },
+    {
+      "id": "motherwell",
+      "name": "Motherwell",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 5
+    },
+    {
+      "id": "kilmarnock",
+      "name": "Kilmarnock",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 5
+    },
+    {
+      "id": "st-mirren",
+      "name": "St Mirren",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 5
+    },
+    {
+      "id": "dundee",
+      "name": "Dundee",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 5
+    },
+    {
+      "id": "falkirk",
+      "name": "Falkirk",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 5
+    },
+    {
+      "id": "st-johnstone",
+      "name": "St Johnstone",
+      "leagueId": "scottish-premiership",
+      "country": "Scotland",
+      "tier": 5
+    },
+    {
+      "id": "inter-miami-cf",
+      "name": "Inter Miami CF",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 3
+    },
+    {
+      "id": "los-angeles-fc",
+      "name": "Los Angeles FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 3
+    },
+    {
+      "id": "la-galaxy",
+      "name": "LA Galaxy",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "seattle-sounders-fc",
+      "name": "Seattle Sounders FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "columbus-crew",
+      "name": "Columbus Crew",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "fc-cincinnati",
+      "name": "FC Cincinnati",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "philadelphia-union",
+      "name": "Philadelphia Union",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "atlanta-united-fc",
+      "name": "Atlanta United FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "new-york-city-fc",
+      "name": "New York City FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "new-york-red-bulls",
+      "name": "New York Red Bulls",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "orlando-city-sc",
+      "name": "Orlando City SC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "nashville-sc",
+      "name": "Nashville SC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "vancouver-whitecaps-fc",
+      "name": "Vancouver Whitecaps FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "san-diego-fc",
+      "name": "San Diego FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "charlotte-fc",
+      "name": "Charlotte FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "minnesota-united-fc",
+      "name": "Minnesota United FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "austin-fc",
+      "name": "Austin FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "toronto-fc",
+      "name": "Toronto FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "chicago-fire-fc",
+      "name": "Chicago Fire FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "portland-timbers",
+      "name": "Portland Timbers",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "real-salt-lake",
+      "name": "Real Salt Lake",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "houston-dynamo-fc",
+      "name": "Houston Dynamo FC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "fc-dallas",
+      "name": "FC Dallas",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "colorado-rapids",
+      "name": "Colorado Rapids",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "sporting-kansas-city",
+      "name": "Sporting Kansas City",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "st-louis-city-sc",
+      "name": "St. Louis City SC",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "d-c-united",
+      "name": "D.C. United",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "new-england-revolution",
+      "name": "New England Revolution",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "san-jose-earthquakes",
+      "name": "San Jose Earthquakes",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "cf-montreal",
+      "name": "CF Montréal",
+      "leagueId": "mls",
+      "country": "USA/Canada",
+      "tier": 4
+    },
+    {
+      "id": "america",
+      "name": "América",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 3
+    },
+    {
+      "id": "monterrey",
+      "name": "Monterrey",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 3
+    },
+    {
+      "id": "tigres-uanl",
+      "name": "Tigres UANL",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 3
+    },
+    {
+      "id": "cruz-azul",
+      "name": "Cruz Azul",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 3
+    },
+    {
+      "id": "toluca",
+      "name": "Toluca",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 3
+    },
+    {
+      "id": "guadalajara",
+      "name": "Guadalajara",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 3
+    },
+    {
+      "id": "pumas-unam",
+      "name": "Pumas UNAM",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "pachuca",
+      "name": "Pachuca",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "leon",
+      "name": "León",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "santos-laguna",
+      "name": "Santos Laguna",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "atlas",
+      "name": "Atlas",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "tijuana",
+      "name": "Tijuana",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "necaxa",
+      "name": "Necaxa",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "queretaro",
+      "name": "Querétaro",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "puebla",
+      "name": "Puebla",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "juarez",
+      "name": "Juárez",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "atletico-san-luis",
+      "name": "Atlético San Luis",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "atlante",
+      "name": "Atlante",
+      "leagueId": "liga-mx",
+      "country": "Mexico",
+      "tier": 4
+    },
+    {
+      "id": "red-bull-salzburg",
+      "name": "Red Bull Salzburg",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 3
+    },
+    {
+      "id": "sturm-graz",
+      "name": "Sturm Graz",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 3
+    },
+    {
+      "id": "rapid-wien",
+      "name": "Rapid Wien",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 4
+    },
+    {
+      "id": "lask",
+      "name": "LASK",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 4
+    },
+    {
+      "id": "austria-wien",
+      "name": "Austria Wien",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 4
+    },
+    {
+      "id": "wolfsberger-ac",
+      "name": "Wolfsberger AC",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 4
+    },
+    {
+      "id": "tsv-hartberg",
+      "name": "TSV Hartberg",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 5
+    },
+    {
+      "id": "wsg-tirol",
+      "name": "WSG Tirol",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 5
+    },
+    {
+      "id": "rheindorf-altach",
+      "name": "Rheindorf Altach",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 5
+    },
+    {
+      "id": "sv-ried",
+      "name": "SV Ried",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 5
+    },
+    {
+      "id": "grazer-ak",
+      "name": "Grazer AK",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 5
+    },
+    {
+      "id": "austria-lustenau",
+      "name": "Austria Lustenau",
+      "leagueId": "austrian-bundesliga",
+      "country": "Austria",
+      "tier": 5
+    },
+    {
+      "id": "fc-basel",
+      "name": "FC Basel",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 3
+    },
+    {
+      "id": "young-boys",
+      "name": "Young Boys",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 3
+    },
+    {
+      "id": "servette",
+      "name": "Servette",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 4
+    },
+    {
+      "id": "lugano",
+      "name": "Lugano",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 4
+    },
+    {
+      "id": "fc-zurich",
+      "name": "FC Zürich",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 4
+    },
+    {
+      "id": "luzern",
+      "name": "Luzern",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 4
+    },
+    {
+      "id": "st-gallen",
+      "name": "St. Gallen",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 4
+    },
+    {
+      "id": "lausanne-sport",
+      "name": "Lausanne-Sport",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 4
+    },
+    {
+      "id": "sion",
+      "name": "Sion",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 4
+    },
+    {
+      "id": "grasshopper",
+      "name": "Grasshopper",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 4
+    },
+    {
+      "id": "fc-thun",
+      "name": "FC Thun",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 4
+    },
+    {
+      "id": "fc-vaduz",
+      "name": "FC Vaduz",
+      "leagueId": "swiss-super-league",
+      "country": "Switzerland",
+      "tier": 5
+    },
+    {
+      "id": "fc-copenhagen",
+      "name": "FC Copenhagen",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 3
+    },
+    {
+      "id": "midtjylland",
+      "name": "Midtjylland",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 3
+    },
+    {
+      "id": "brndby",
+      "name": "Brøndby",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 4
+    },
+    {
+      "id": "nordsjlland",
+      "name": "Nordsjælland",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 4
+    },
+    {
+      "id": "agf",
+      "name": "AGF",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 4
+    },
+    {
+      "id": "randers",
+      "name": "Randers",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 4
+    },
+    {
+      "id": "silkeborg",
+      "name": "Silkeborg",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 4
+    },
+    {
+      "id": "viborg",
+      "name": "Viborg",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 4
+    },
+    {
+      "id": "ob",
+      "name": "OB",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 4
+    },
+    {
+      "id": "snderjyske",
+      "name": "Sønderjyske",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 5
+    },
+    {
+      "id": "lyngby",
+      "name": "Lyngby",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 5
+    },
+    {
+      "id": "horsens",
+      "name": "Horsens",
+      "leagueId": "danish-superliga",
+      "country": "Denmark",
+      "tier": 5
+    },
+    {
+      "id": "olympiacos",
+      "name": "Olympiacos",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 3
+    },
+    {
+      "id": "paok",
+      "name": "PAOK",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 3
+    },
+    {
+      "id": "aek-athens",
+      "name": "AEK Athens",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 3
+    },
+    {
+      "id": "panathinaikos",
+      "name": "Panathinaikos",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 3
+    },
+    {
+      "id": "aris",
+      "name": "Aris",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 4
+    },
+    {
+      "id": "ofi",
+      "name": "OFI",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 4
+    },
+    {
+      "id": "asteras-tripolis",
+      "name": "Asteras Tripolis",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 4
+    },
+    {
+      "id": "atromitos",
+      "name": "Atromitos",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 4
+    },
+    {
+      "id": "volos",
+      "name": "Volos",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 4
+    },
+    {
+      "id": "levadiakos",
+      "name": "Levadiakos",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 4
+    },
+    {
+      "id": "panetolikos",
+      "name": "Panetolikos",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 4
+    },
+    {
+      "id": "kifisia",
+      "name": "Kifisia",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 5
+    },
+    {
+      "id": "kalamata",
+      "name": "Kalamata",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 5
+    },
+    {
+      "id": "iraklis",
+      "name": "Iraklis",
+      "leagueId": "greek-super-league",
+      "country": "Greece",
+      "tier": 5
+    },
+    {
+      "id": "slavia-prague",
+      "name": "Slavia Prague",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 3
+    },
+    {
+      "id": "sparta-prague",
+      "name": "Sparta Prague",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 3
+    },
+    {
+      "id": "viktoria-plzen",
+      "name": "Viktoria Plzeň",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 3
+    },
+    {
+      "id": "banik-ostrava",
+      "name": "Baník Ostrava",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "slovan-liberec",
+      "name": "Slovan Liberec",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "jablonec",
+      "name": "Jablonec",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "sigma-olomouc",
+      "name": "Sigma Olomouc",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "hradec-kralove",
+      "name": "Hradec Králové",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "mlada-boleslav",
+      "name": "Mladá Boleslav",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "bohemians-1905",
+      "name": "Bohemians 1905",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "slovacko",
+      "name": "Slovácko",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "teplice",
+      "name": "Teplice",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "pardubice",
+      "name": "Pardubice",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 4
+    },
+    {
+      "id": "zlin",
+      "name": "Zlín",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 5
+    },
+    {
+      "id": "zbrojovka-brno",
+      "name": "Zbrojovka Brno",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 5
+    },
+    {
+      "id": "artis-brno",
+      "name": "Artis Brno",
+      "leagueId": "czech-first-league",
+      "country": "Czech Republic",
+      "tier": 5
+    },
+    {
+      "id": "vfl-wolfsburg",
+      "name": "VfL Wolfsburg",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "fc-st-pauli",
+      "name": "FC St. Pauli",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "1-fc-heidenheim",
+      "name": "1. FC Heidenheim",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "hertha-bsc",
+      "name": "Hertha BSC",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "1-fc-kaiserslautern",
+      "name": "1. FC Kaiserslautern",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "1-fc-nurnberg",
+      "name": "1. FC Nürnberg",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "vfl-bochum",
+      "name": "VfL Bochum",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "hannover-96",
+      "name": "Hannover 96",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "holstein-kiel",
+      "name": "Holstein Kiel",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "darmstadt-98",
+      "name": "Darmstadt 98",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "greuther-furth",
+      "name": "Greuther Fürth",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "karlsruher-sc",
+      "name": "Karlsruher SC",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "arminia-bielefeld",
+      "name": "Arminia Bielefeld",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "1-fc-magdeburg",
+      "name": "1. FC Magdeburg",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 4
+    },
+    {
+      "id": "eintracht-braunschweig",
+      "name": "Eintracht Braunschweig",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 5
+    },
+    {
+      "id": "energie-cottbus",
+      "name": "Energie Cottbus",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 5
+    },
+    {
+      "id": "dynamo-dresden",
+      "name": "Dynamo Dresden",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 5
+    },
+    {
+      "id": "vfl-osnabruck",
+      "name": "VfL Osnabrück",
+      "leagueId": "2-bundesliga",
+      "country": "Germany",
+      "tier": 5
+    },
+    {
+      "id": "cremonese",
+      "name": "Cremonese",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "hellas-verona",
+      "name": "Hellas Verona",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "pisa",
+      "name": "Pisa",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "empoli",
+      "name": "Empoli",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "palermo",
+      "name": "Palermo",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "sampdoria",
+      "name": "Sampdoria",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "modena",
+      "name": "Modena",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "cesena",
+      "name": "Cesena",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "catanzaro",
+      "name": "Catanzaro",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "sudtirol",
+      "name": "Südtirol",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "padova",
+      "name": "Padova",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "carrarese",
+      "name": "Carrarese",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "juve-stabia",
+      "name": "Juve Stabia",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "mantova",
+      "name": "Mantova",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "virtus-entella",
+      "name": "Virtus Entella",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 4
+    },
+    {
+      "id": "arezzo",
+      "name": "Arezzo",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 5
+    },
+    {
+      "id": "ascoli",
+      "name": "Ascoli",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 5
+    },
+    {
+      "id": "avellino",
+      "name": "Avellino",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 5
+    },
+    {
+      "id": "benevento",
+      "name": "Benevento",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 5
+    },
+    {
+      "id": "vicenza",
+      "name": "Vicenza",
+      "leagueId": "serie-b",
+      "country": "Italy",
+      "tier": 5
+    },
+    {
+      "id": "mallorca",
+      "name": "Mallorca",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "girona",
+      "name": "Girona",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "real-oviedo",
+      "name": "Real Oviedo",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "las-palmas",
+      "name": "Las Palmas",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "real-valladolid",
+      "name": "Real Valladolid",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "leganes",
+      "name": "Leganés",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "granada",
+      "name": "Granada",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "cadiz",
+      "name": "Cádiz",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "almeria",
+      "name": "Almería",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "sporting-gijon",
+      "name": "Sporting Gijón",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "eibar",
+      "name": "Eibar",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "albacete",
+      "name": "Albacete",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "burgos",
+      "name": "Burgos",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "castellon",
+      "name": "Castellón",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "cordoba",
+      "name": "Córdoba",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "andorra",
+      "name": "Andorra",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 4
+    },
+    {
+      "id": "ceuta",
+      "name": "Ceuta",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 5
+    },
+    {
+      "id": "tenerife",
+      "name": "Tenerife",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 5
+    },
+    {
+      "id": "eldense",
+      "name": "Eldense",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 5
+    },
+    {
+      "id": "sabadell",
+      "name": "Sabadell",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 5
+    },
+    {
+      "id": "real-sociedad-b",
+      "name": "Real Sociedad B",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 5,
+      "reserveTeam": true
+    },
+    {
+      "id": "celta-fortuna",
+      "name": "Celta Fortuna",
+      "leagueId": "segunda-division",
+      "country": "Spain",
+      "tier": 5,
+      "reserveTeam": true
+    },
+    {
+      "id": "nantes",
+      "name": "Nantes",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 4
+    },
+    {
+      "id": "metz",
+      "name": "Metz",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 4
+    },
+    {
+      "id": "saint-etienne",
+      "name": "Saint-Étienne",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 4
+    },
+    {
+      "id": "montpellier",
+      "name": "Montpellier",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 4
+    },
+    {
+      "id": "reims",
+      "name": "Reims",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 4
+    },
+    {
+      "id": "guingamp",
+      "name": "Guingamp",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 4
+    },
+    {
+      "id": "red-star",
+      "name": "Red Star",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 4
+    },
+    {
+      "id": "clermont",
+      "name": "Clermont",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "dijon",
+      "name": "Dijon",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "sochaux",
+      "name": "Sochaux",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "grenoble",
+      "name": "Grenoble",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "annecy",
+      "name": "Annecy",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "dunkerque",
+      "name": "Dunkerque",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "laval",
+      "name": "Laval",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "rodez",
+      "name": "Rodez",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "pau",
+      "name": "Pau",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "nancy",
+      "name": "Nancy",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "boulogne",
+      "name": "Boulogne",
+      "leagueId": "ligue-2",
+      "country": "France",
+      "tier": 5
+    },
+    {
+      "id": "bod-glimt",
+      "name": "Bodø/Glimt",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 4
+    },
+    {
+      "id": "molde",
+      "name": "Molde",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 4
+    },
+    {
+      "id": "brann",
+      "name": "Brann",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 4
+    },
+    {
+      "id": "rosenborg",
+      "name": "Rosenborg",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 4
+    },
+    {
+      "id": "viking",
+      "name": "Viking",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 4
+    },
+    {
+      "id": "valerenga",
+      "name": "Vålerenga",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "lillestrm",
+      "name": "Lillestrøm",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "troms",
+      "name": "Tromsø",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "sarpsborg-08",
+      "name": "Sarpsborg 08",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "fredrikstad",
+      "name": "Fredrikstad",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "sandefjord",
+      "name": "Sandefjord",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "kristiansund",
+      "name": "Kristiansund",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "hamkam",
+      "name": "HamKam",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "kfum-oslo",
+      "name": "KFUM Oslo",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "aalesund",
+      "name": "Aalesund",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "start",
+      "name": "Start",
+      "leagueId": "eliteserien",
+      "country": "Norway",
+      "tier": 5
+    },
+    {
+      "id": "malmo-ff",
+      "name": "Malmö FF",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 4
+    },
+    {
+      "id": "djurgardens-if",
+      "name": "Djurgårdens IF",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 4
+    },
+    {
+      "id": "hammarby-if",
+      "name": "Hammarby IF",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 4
+    },
+    {
+      "id": "aik",
+      "name": "AIK",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 4
+    },
+    {
+      "id": "bk-hacken",
+      "name": "BK Häcken",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 4
+    },
+    {
+      "id": "if-elfsborg",
+      "name": "IF Elfsborg",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 4
+    },
+    {
+      "id": "mjallby-aif",
+      "name": "Mjällby AIF",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "ifk-goteborg",
+      "name": "IFK Göteborg",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "gais",
+      "name": "GAIS",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "ik-sirius",
+      "name": "IK Sirius",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "if-brommapojkarna",
+      "name": "IF Brommapojkarna",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "halmstads-bk",
+      "name": "Halmstads BK",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "degerfors-if",
+      "name": "Degerfors IF",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "kalmar-ff",
+      "name": "Kalmar FF",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "vasteras-sk",
+      "name": "Västerås SK",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "orgryte-is",
+      "name": "Örgryte IS",
+      "leagueId": "allsvenskan",
+      "country": "Sweden",
+      "tier": 5
+    },
+    {
+      "id": "kashima-antlers",
+      "name": "Kashima Antlers",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "urawa-red-diamonds",
+      "name": "Urawa Red Diamonds",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "kawasaki-frontale",
+      "name": "Kawasaki Frontale",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "yokohama-f-marinos",
+      "name": "Yokohama F. Marinos",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "vissel-kobe",
+      "name": "Vissel Kobe",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "sanfrecce-hiroshima",
+      "name": "Sanfrecce Hiroshima",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "gamba-osaka",
+      "name": "Gamba Osaka",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "cerezo-osaka",
+      "name": "Cerezo Osaka",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "kashiwa-reysol",
+      "name": "Kashiwa Reysol",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "fc-tokyo",
+      "name": "FC Tokyo",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "nagoya-grampus",
+      "name": "Nagoya Grampus",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "machida-zelvia",
+      "name": "Machida Zelvia",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "kyoto-sanga",
+      "name": "Kyoto Sanga",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 4
+    },
+    {
+      "id": "tokyo-verdy",
+      "name": "Tokyo Verdy",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 5
+    },
+    {
+      "id": "shimizu-s-pulse",
+      "name": "Shimizu S-Pulse",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 5
+    },
+    {
+      "id": "avispa-fukuoka",
+      "name": "Avispa Fukuoka",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 5
+    },
+    {
+      "id": "fagiano-okayama",
+      "name": "Fagiano Okayama",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 5
+    },
+    {
+      "id": "v-varen-nagasaki",
+      "name": "V-Varen Nagasaki",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 5
+    },
+    {
+      "id": "mito-hollyhock",
+      "name": "Mito HollyHock",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 5
+    },
+    {
+      "id": "jef-united-chiba",
+      "name": "JEF United Chiba",
+      "leagueId": "j1-league",
+      "country": "Japan",
+      "tier": 5
+    },
+    {
+      "id": "leicester-city",
+      "name": "Leicester City",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 4
+    },
+    {
+      "id": "sheffield-wednesday",
+      "name": "Sheffield Wednesday",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "huddersfield-town",
+      "name": "Huddersfield Town",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "luton-town",
+      "name": "Luton Town",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "reading",
+      "name": "Reading",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "wigan-athletic",
+      "name": "Wigan Athletic",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "blackpool",
+      "name": "Blackpool",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "barnsley",
+      "name": "Barnsley",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "bradford-city",
+      "name": "Bradford City",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "plymouth-argyle",
+      "name": "Plymouth Argyle",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "peterborough-united",
+      "name": "Peterborough United",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "stockport-county",
+      "name": "Stockport County",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "oxford-united",
+      "name": "Oxford United",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "mansfield-town",
+      "name": "Mansfield Town",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "notts-county",
+      "name": "Notts County",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "doncaster-rovers",
+      "name": "Doncaster Rovers",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "milton-keynes-dons",
+      "name": "Milton Keynes Dons",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "wycombe-wanderers",
+      "name": "Wycombe Wanderers",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "leyton-orient",
+      "name": "Leyton Orient",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "cambridge-united",
+      "name": "Cambridge United",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "burton-albion",
+      "name": "Burton Albion",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "stevenage",
+      "name": "Stevenage",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "afc-wimbledon",
+      "name": "AFC Wimbledon",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "bromley",
+      "name": "Bromley",
+      "leagueId": "league-one",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "bristol-rovers",
+      "name": "Bristol Rovers",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "swindon-town",
+      "name": "Swindon Town",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "port-vale",
+      "name": "Port Vale",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "rotherham-united",
+      "name": "Rotherham United",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "shrewsbury-town",
+      "name": "Shrewsbury Town",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "northampton-town",
+      "name": "Northampton Town",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "crewe-alexandra",
+      "name": "Crewe Alexandra",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "tranmere-rovers",
+      "name": "Tranmere Rovers",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "oldham-athletic",
+      "name": "Oldham Athletic",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "walsall",
+      "name": "Walsall",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "gillingham",
+      "name": "Gillingham",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "grimsby-town",
+      "name": "Grimsby Town",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "exeter-city",
+      "name": "Exeter City",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "chesterfield",
+      "name": "Chesterfield",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "colchester-united",
+      "name": "Colchester United",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "salford-city",
+      "name": "Salford City",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "fleetwood-town",
+      "name": "Fleetwood Town",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "cheltenham-town",
+      "name": "Cheltenham Town",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "newport-county",
+      "name": "Newport County",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "crawley-town",
+      "name": "Crawley Town",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "accrington-stanley",
+      "name": "Accrington Stanley",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "rochdale",
+      "name": "Rochdale",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "barnet",
+      "name": "Barnet",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    },
+    {
+      "id": "york-city",
+      "name": "York City",
+      "leagueId": "league-two",
+      "country": "England",
+      "tier": 5
+    }
+  ]
+}

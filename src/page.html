@@ -1,0 +1,772 @@
+<title>Football Career Sim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: one phone-width column built around a black scoreboard reel; the career fills in underneath, newest season first.
+   Palette: strictly monochrome. Emphasis comes from inversion (black on white, white on black), weight and line style, not hue. */
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-2: #F3F3F3;
+  --ink: #0A0A0A;
+  --muted: #6E6E6E;
+  --good: #15803D;        /* gains, accolades, good news */
+  --good-soft: #E6F4EA;
+  --bad: #C62828;         /* losses, injuries, bad news */
+  --bad-soft: #FBEAEA;
+  --line: #E1E1E1;
+  --strong-line: #0A0A0A;
+  --invert: #0A0A0A;      /* filled chips, buttons, OVR block */
+  --invert-ink: #FFFFFF;
+  --board: #0A0A0A;       /* the scoreboard is black in both themes */
+  --board-2: #171717;
+  --board-ink: #FFFFFF;
+  --board-dim: #8C8C8C;
+  --board-edge: #0A0A0A;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --label: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000; --surface: #0D0D0D; --surface-2: #161616; --ink: #F4F4F4; --muted: #8E8E8E;
+    --line: #262626; --strong-line: #F4F4F4; --invert: #F4F4F4; --invert-ink: #000000;
+    --board: #000000; --board-2: #141414; --board-ink: #FFFFFF; --board-dim: #8C8C8C; --board-edge: #2E2E2E;
+    --good: #4ADE80; --good-soft: #0E2A19; --bad: #F87171; --bad-soft: #2E1313;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000000; --surface: #0D0D0D; --surface-2: #161616; --ink: #F4F4F4; --muted: #8E8E8E;
+  --line: #262626; --strong-line: #F4F4F4; --invert: #F4F4F4; --invert-ink: #000000;
+  --board: #000000; --board-2: #141414; --board-ink: #FFFFFF; --board-dim: #8C8C8C; --board-edge: #2E2E2E;
+    --good: #4ADE80; --good-soft: #0E2A19; --bad: #F87171; --bad-soft: #2E1313;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 560px; margin: 0 auto; padding-inline: 16px; padding-block: 18px 48px; display: grid; gap: 16px; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.board :focus-visible { outline-color: var(--board-ink); }
+
+/* masthead */
+.mast { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.wordmark { font-family: var(--display); font-weight: 900; font-size: 30px; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1; }
+.wordmark span { color: transparent; -webkit-text-stroke: 1.2px var(--ink); }
+.season-tag { font-family: var(--label); font-weight: 600; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* scoreboard reel */
+.board { background: var(--board); color: var(--board-ink); border: 1px solid var(--board-edge); border-radius: 14px; padding: 14px 16px 16px; display: grid; gap: 10px;
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1.2px); background-size: 6px 6px; cursor: default; }
+.board.spinning { cursor: pointer; }
+.board-label { font-family: var(--label); font-weight: 600; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--board-dim); min-height: 1.4em; }
+.reel { background: var(--board-2); border-radius: 8px; min-height: 104px; display: grid; place-items: center; text-align: center; padding: 12px; overflow: hidden; position: relative; }
+.reel::before, .reel::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.06); }
+.reel::before { top: 50%; }
+.reel-text { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(30px, 9vw, 46px); line-height: 1; letter-spacing: 0.01em; overflow-wrap: anywhere; text-wrap: balance; }
+.reel-sub { font-family: var(--label); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; font-size: 13px; color: var(--board-dim); margin-top: 6px; min-height: 1.3em; }
+.reel-text.tick { animation: tick 90ms ease-out; }
+@keyframes tick { from { transform: translateY(-30%); opacity: 0.35; } to { transform: none; opacity: 1; } }
+.board.landed .reel { animation: land 600ms ease-out; }
+@keyframes land { 0% { box-shadow: inset 0 0 0 0 var(--board-ink); } 30% { box-shadow: inset 0 0 0 3px var(--board-ink); } 100% { box-shadow: inset 0 0 0 0 transparent; } }
+.board-actions { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.btn { border: 0; border-radius: 10px; padding: 12px 18px; font-family: var(--label); font-weight: 700; font-size: 17px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+.btn-stop { background: var(--board-ink); color: var(--board); min-width: 140px; }
+.btn-stop:disabled { opacity: 0.35; cursor: default; }
+.toggle { display: inline-flex; gap: 8px; align-items: center; font-family: var(--label); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; color: var(--board-dim); cursor: pointer; }
+.toggle input { accent-color: var(--board-ink); width: 18px; height: 18px; }
+
+/* transfer offers */
+.offers { display: grid; gap: 10px; }
+.offers-head { font-family: var(--label); font-weight: 700; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; }
+.offers-head small { display: block; font-weight: 500; letter-spacing: 0.04em; text-transform: none; font-family: var(--body); color: var(--muted); font-size: 13px; }
+.offer-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.offer { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.offer.stay { background: var(--surface-2); border-style: dashed; }
+.offer-kicker { font-family: var(--label); font-weight: 700; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.offer-kicker.hot { color: var(--good); }
+.offer-kicker.warn { color: var(--bad); }
+.offer.rival { border: 2px solid var(--bad); }
+.offer .warn-line { font-size: 13px; color: var(--bad); font-weight: 700; }
+.offer.stay.raise { border: 2px solid var(--good); }
+.offer h3 { margin: 0; font-family: var(--display); font-weight: 900; font-size: 22px; text-transform: uppercase; line-height: 1; overflow-wrap: anywhere; }
+.offer .lg { font-size: 13px; color: var(--muted); }
+.offer dl { margin: 2px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 13.5px; }
+.offer dt { color: var(--muted); }
+.offer dd { margin: 0; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+.offer dd.up { color: var(--good); font-weight: 700; }
+.offer dd.down { color: var(--bad); font-weight: 700; }
+.role-Starter { color: var(--good); font-weight: 700; } .role-Bench { color: var(--bad); font-weight: 700; }
+.offer .btn { padding: 10px; font-size: 15px; margin-top: 4px; }
+
+/* setup */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px; display: grid; gap: 18px; }
+.field { display: grid; gap: 8px; min-width: 0; }
+.field > label, .legend { font-family: var(--label); font-weight: 700; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.text-input, select { width: 100%; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 12px; font-size: 17px; }
+.text-input::placeholder { color: var(--muted); }
+.pos-groups { display: grid; gap: 10px; }
+.pos-row { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: center; }
+.pos-row > span { font-family: var(--label); font-weight: 600; font-size: 14px; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 7px 12px; cursor: pointer; font-weight: 600; font-size: 14px; }
+.chip:disabled { opacity: 0.4; cursor: default; }
+.chip[aria-pressed="true"] { background: var(--invert); border-color: var(--invert); color: var(--invert-ink); }
+.hint { font-size: 13px; color: var(--muted); }
+.btn-start { background: var(--invert); color: var(--invert-ink); width: 100%; padding: 15px; font-size: 19px; }
+.error { color: var(--bad); border-left: 3px solid var(--bad); padding-left: 8px; font-size: 14px; font-weight: 600; }
+
+/* player card */
+.player { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.ovr { background: var(--invert); color: var(--invert-ink); border-radius: 10px; width: 76px; padding: 8px 0 6px; text-align: center; }
+.ovr b { display: block; font-family: var(--display); font-weight: 900; font-size: 40px; line-height: 0.95; font-variant-numeric: tabular-nums; }
+.ovr span { font-family: var(--label); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; }
+.who { min-width: 0; display: grid; gap: 2px; }
+.who h2 { margin: 0; font-family: var(--display); font-weight: 900; font-size: 26px; text-transform: uppercase; line-height: 1.05; overflow-wrap: anywhere; }
+.who p { margin: 0; color: var(--muted); font-size: 14px; }
+.who .now { color: var(--ink); font-weight: 600; }
+
+.totals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.stat b { display: block; font-family: var(--display); font-weight: 900; font-size: 26px; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat span { font-family: var(--label); font-weight: 600; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+/* timeline */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.row { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; animation: rowin 380ms ease-out; }
+@keyframes rowin { from { transform: translateY(-6px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+.row.youth { background: var(--surface-2); }
+.row-top { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: start; }
+.row-club { min-width: 0; }
+.row-club b { font-weight: 700; font-size: 16px; overflow-wrap: anywhere; }
+.row-club small { display: block; color: var(--muted); font-size: 13px; }
+.row-when { text-align: right; font-family: var(--label); font-weight: 600; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; white-space: nowrap; }
+.row-when b { display: block; color: var(--ink); font-size: 15px; }
+.row-stats { display: flex; flex-wrap: wrap; gap: 4px 14px; font-variant-numeric: tabular-nums; font-size: 14px; color: var(--muted); }
+.row-stats b { color: var(--ink); font-weight: 700; }
+.move { font-family: var(--label); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.badge { font-family: var(--label); font-weight: 700; font-size: 13px; letter-spacing: 0.04em; border-radius: 6px; padding: 3px 8px; }
+.badge.trophy { background: var(--good); color: var(--bg); }
+.badge.award { background: var(--good-soft); color: var(--good); border: 1px solid var(--good); }
+.badge.poor { background: var(--bad-soft); color: var(--bad); border: 1px solid var(--bad); }
+.badge.hot { background: var(--good-soft); color: var(--good); border: 1px solid var(--good); }
+.events { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; font-size: 13.5px; color: var(--muted); }
+.events li::before { content: "› "; color: var(--ink); font-weight: 700; }
+.events li.good { color: var(--good); font-weight: 600; } .events li.good::before { color: var(--good); }
+.events li.bad { color: var(--bad); font-weight: 600; } .events li.bad::before { color: var(--bad); }
+.move.good { color: var(--good); } .move.bad { color: var(--bad); }
+.delta { font-weight: 700; font-size: 12.5px; } .delta.good { color: var(--good); } .delta.bad { color: var(--bad); }
+
+/* summary */
+.summary { background: var(--surface); border: 2px solid var(--ink); border-radius: 16px; padding: 18px 16px; display: grid; gap: 14px; }
+.verdict-kicker { font-family: var(--label); font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.verdict { margin: 0; font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(40px, 12vw, 64px); line-height: 0.92; text-wrap: balance; }
+.verdict-line { margin: 0; font-size: 16px; }
+.score { display: flex; gap: 16px; flex-wrap: wrap; align-items: baseline; }
+.score b { font-family: var(--display); font-weight: 900; font-size: 34px; font-variant-numeric: tabular-nums; }
+.score span { color: var(--muted); font-size: 14px; }
+.path { display: flex; flex-wrap: wrap; gap: 4px 6px; font-weight: 600; font-size: 14px; }
+.path span + span::before { content: "→ "; color: var(--muted); font-weight: 400; }
+.path em { font-style: normal; color: var(--muted); font-weight: 400; }
+.wc-line { margin: 4px 0 0; font-weight: 600; }
+.mgr { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 12px; }
+.mgr-verdict { margin: 0; font-family: var(--display); font-weight: 900; font-size: 30px; text-transform: uppercase; line-height: 1; }
+.mgr-stints { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 14px; }
+.cabinet { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.cab { display: flex; justify-content: space-between; gap: 8px; background: var(--surface-2); border-radius: 8px; padding: 6px 10px; font-size: 14px; min-width: 0; }
+.cab b { font-variant-numeric: tabular-nums; }
+.sum-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-ghost { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink); }
+.btn-primary { background: var(--invert); color: var(--invert-ink); }
+.share-panel { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+.share-panel img { width: 100%; max-width: 380px; height: auto; border-radius: 12px; border: 1px solid var(--line); display: block; }
+.copy-box { width: 100%; min-height: 160px; font-family: var(--body); font-size: 13px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; color: var(--ink); }
+.fine { font-size: 12.5px; color: var(--muted); }
+
+@media (max-width: 420px) {
+  .totals { grid-template-columns: repeat(2, 1fr); }
+  .pos-row { grid-template-columns: 1fr; gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reel-text.tick, .board.landed .reel, .row { animation: none; }
+}
+</style>
+
+<main class="wrap">
+  <header class="mast">
+    <div class="wordmark">Football Career <span>Sim</span></div>
+    <div class="season-tag">Season 2026–27 squads</div>
+  </header>
+
+  <section class="board" id="board" aria-live="polite">
+    <div class="board-label" id="reelLabel">Kick-off · Pick your player below</div>
+    <div class="reel"><div><div class="reel-text" id="reelText">Your career starts here</div><div class="reel-sub" id="reelSub">564 clubs · 30 leagues · 40 academies</div></div></div>
+    <div class="board-actions">
+      <button class="btn btn-stop" id="stopBtn" type="button" disabled>Stop</button>
+      <label class="toggle"><input type="checkbox" id="autoStop"> Auto-stop</label>
+    </div>
+  </section>
+
+  <section class="offers" id="offers" hidden aria-live="polite"></section>
+
+  <form class="panel" id="setup" novalidate>
+    <div class="field">
+      <label for="pName">Player name</label>
+      <input class="text-input" id="pName" maxlength="28" placeholder="Type your name" autocomplete="off">
+    </div>
+    <div class="field">
+      <div class="legend">Position</div>
+      <div class="pos-groups">
+        <div class="pos-row"><span>Role</span><div class="chips" id="roleChips"></div></div>
+        <div class="pos-row"><span>Side</span><div class="chips" id="sideChips"></div></div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="legend">Nationality</div>
+      <div class="chips" id="contChips"></div>
+    </div>
+    <div class="field">
+      <div class="legend">Start in which league's academy?</div>
+      <div class="chips" id="leagueChips"></div>
+      <div class="hint" id="leagueHint"></div>
+    </div>
+    <div class="field" id="dreamField">
+      <label for="pDream">Dream club <span class="hint">· optional</span></label>
+      <select id="pDream"></select>
+      <div class="hint">If you pick one, there's a 1 in 4 chance you start there, with a higher ceiling for a legendary career.</div>
+    </div>
+    <div class="error" id="setupError" hidden></div>
+    <button class="btn btn-start" id="startBtn" type="submit">Start career</button>
+  </form>
+
+  <section id="game" hidden>
+    <div style="display:grid; gap:12px">
+      <div class="player">
+        <div class="ovr"><b id="ovr">--</b><span>OVR</span></div>
+        <div class="who">
+          <h2 id="whoName"></h2>
+          <p id="whoMeta"></p>
+          <p class="now" id="whoNow"></p>
+          <p id="whoValue"></p>
+        </div>
+      </div>
+      <div class="totals">
+        <div class="stat"><b id="tApps">0</b><span>Apps</span></div>
+        <div class="stat"><b id="tGoals">0</b><span id="tGoalsLbl">Goals</span></div>
+        <div class="stat"><b id="tAssists">0</b><span>Assists</span></div>
+        <div class="stat"><b id="tTrophies">0</b><span>Trophies</span></div>
+      </div>
+      <div class="sum-actions" id="midActions">
+        <button class="btn btn-ghost" id="skipBtn" type="button">Skip to the end</button>
+      </div>
+      <section class="summary" id="summary" hidden></section>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <p class="fine">Club and country names are used for identification only. This is an unofficial fan game with no connection to any club, league or federation.</p>
+</main>
+
+<script>
+/*__DATA__*/
+</script>
+<script>
+/*__ENGINE__*/
+</script>
+<script>
+(function () {
+  "use strict";
+  const E = window.CareerEngine;
+  const W = E.prepare(window.CAREER_DATA);
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const TOP5 = ["premier-league", "la-liga", "serie-a", "bundesliga", "ligue-1"].map((id) => W.leagues.findIndex((l) => l.id === id));
+
+  // ----- setup form -----
+  const setup = { role: "ST", side: "Center", continent: 3, league: TOP5[0] };
+  const posId = () => (setup.role === "GK" ? "GK" : `${setup.role}-${setup.side[0]}`);
+  const pressed = (sel, el) => document.querySelectorAll(sel).forEach((x) => x.setAttribute("aria-pressed", x === el));
+  $("roleChips").innerHTML = E.ROLES.map((r) => `<button type="button" class="chip" data-role="${r.id}" aria-pressed="${r.id === setup.role}">${r.name}</button>`).join("");
+  $("sideChips").innerHTML = E.SIDES.map((sd) => `<button type="button" class="chip" data-side="${sd}" aria-pressed="${sd === setup.side}">${sd}</button>`).join("");
+  $("contChips").innerHTML = E.CONTINENTS.map((c, i) => `<button type="button" class="chip" data-cont="${i}" aria-pressed="${i === setup.continent}">${c.name}</button>`).join("");
+  $("roleChips").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-role]"); if (!b) return;
+    setup.role = b.dataset.role; pressed("[data-role]", b);
+    document.querySelectorAll("[data-side]").forEach((x) => (x.disabled = setup.role === "GK"));
+  });
+  $("sideChips").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-side]"); if (!b || b.disabled) return;
+    setup.side = b.dataset.side; pressed("[data-side]", b);
+  });
+  $("contChips").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-cont]"); if (!b) return;
+    setup.continent = +b.dataset.cont; pressed("[data-cont]", b);
+  });
+  function leagueHint() {
+    const dream = $("pDream");
+    if (setup.league < 0) {
+      $("leagueHint").textContent = "A random top-five league is drawn first, then one of its 8 academies.";
+      $("dreamField").hidden = true;
+      setup.dream = null;
+      return;
+    }
+    const acs = W.leagues[setup.league].clubs.filter((c) => c.ac).sort((a, b) => a.ac - b.ac);
+    $("leagueHint").textContent = "You'll be drawn into one of: " + acs.map((c) => c.name).join(", ") + ".";
+    $("dreamField").hidden = false;
+    dream.innerHTML = `<option value="">No preference</option>` + acs.map((c) => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+    setup.dream = null;
+  }
+  $("pDream").addEventListener("change", (e) => { setup.dream = e.target.value || null; });
+  $("leagueChips").innerHTML = TOP5.map((i) => `<button type="button" class="chip" data-league="${i}" aria-pressed="${i === setup.league}">${esc(W.leagues[i].name)}</button>`).join("")
+    + `<button type="button" class="chip" data-league="-1" aria-pressed="false">Random</button>`;
+  $("leagueChips").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-league]"); if (!b) return;
+    setup.league = +b.dataset.league;
+    document.querySelectorAll("[data-league]").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    leagueHint();
+  });
+  leagueHint();
+
+  // ----- reel -----
+  let stopFn = null, fast = false;
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  function show(text, sub) {
+    const t = $("reelText");
+    t.textContent = text;
+    if (sub !== undefined) $("reelSub").textContent = sub;
+    if (!reduced) { t.classList.remove("tick"); void t.offsetWidth; t.classList.add("tick"); }
+  }
+  function spin({ label, items, final, sub }) {
+    return new Promise((resolve) => {
+      const board = $("board");
+      $("reelLabel").textContent = label;
+      $("reelSub").textContent = "";
+      if (fast) { show(final, sub || ""); resolve(); return; }
+      board.classList.add("spinning");
+      $("stopBtn").disabled = false;
+      $("stopBtn").focus({ preventScroll: true });
+      let i = Math.floor(Math.random() * items.length), stopped = false;
+      const timer = setInterval(() => show(items[i++ % items.length], ""), reduced ? 160 : 85);
+      stopFn = () => {
+        if (stopped) return; stopped = true; stopFn = null;
+        clearInterval(timer);
+        $("stopBtn").disabled = true;
+        const seq = [];
+        for (let k = 0; k < (items.length > 3 ? 5 : 3); k++) seq.push(items[(i + k) % items.length]);
+        seq.push(final);
+        let d = 90, k = 0;
+        const step = () => {
+          const last = k === seq.length - 1;
+          show(seq[k], last ? (sub || "") : "");
+          k++;
+          if (!last) { d *= 1.35; setTimeout(step, d); return; }
+          board.classList.remove("spinning");
+          board.classList.add("landed");
+          setTimeout(() => { board.classList.remove("landed"); resolve(); }, 700);
+        };
+        step();
+      };
+      if ($("autoStop").checked) setTimeout(() => stopFn && stopFn(), 900);
+    });
+  }
+  $("stopBtn").addEventListener("click", () => stopFn && stopFn());
+  $("board").addEventListener("click", (e) => { if (!e.target.closest("label")) stopFn && stopFn(); });
+  document.addEventListener("keydown", (e) => {
+    if ((e.code === "Space" || e.code === "Enter") && stopFn && !e.target.closest("input, select")) { e.preventDefault(); stopFn(); }
+  });
+
+  // ----- transfer offers -----
+  const TIER_LABEL = { 1: "Elite club", 2: "Strong club", 3: "Established club", 4: "Smaller club", 5: "Lower-league club" };
+  function autoPick(offers, stay) {
+    if (!stay) return 0;
+    let best = -1;
+    offers.forEach((o, i) => { if (o.tier < stay.club.tier && o.role !== "Bench" && (best < 0 || o.tier < offers[best].tier)) best = i; });
+    if (best < 0 && stay.role === "Bench") best = offers.findIndex((o) => o.role !== "Bench");
+    return best;
+  }
+  function offersShown(n) {
+    $("reelLabel").textContent = "Summer transfer window";
+    show(n === 0 ? "No offers" : n === 1 ? "1 offer" : `${n} offers`, n ? "Choose below" : "Another season where you are");
+  }
+  function choose({ label, offers, stay, value }) {
+    if (fast) return Promise.resolve(autoPick(offers, stay));
+    return new Promise((resolve) => {
+      const el = $("offers");
+      const card = (o, i) => {
+        const traitor = o.traitorTo && o.traitorTo.length;
+        return `<div class="offer ${traitor ? "rival" : ""}">
+          <div class="offer-kicker ${traitor ? "warn" : o.special ? "hot" : ""}">${esc(traitor ? "Rival club" : o.special || TIER_LABEL[o.tier])}</div>
+          <h3>${esc(o.clubName)}</h3>
+          <div class="lg">${esc(o.league)}</div>
+          ${traitor ? `<div class="warn-line">${esc(o.traitorTo.join(" and "))} fans will call you a traitor</div>` : ""}
+          <dl><dt>Expected role</dt><dd class="role-${o.role}">${o.role}</dd>
+            <dt>Contract</dt><dd>${esc(o.wageText)}</dd>
+            <dt>Length</dt><dd>${o.years} year${o.years > 1 ? "s" : ""}</dd>
+            <dt>Market value</dt><dd class="${o.boost >= 0 ? "up" : "down"}">${esc(o.boostText)}</dd></dl>
+          <button class="btn btn-primary" type="button" data-pick="${i}">Sign</button></div>`;
+      };
+      const r = stay && stay.raise;
+      const stayCard = stay ? `<div class="offer stay ${r ? "raise" : ""}">
+          <div class="offer-kicker ${r ? "hot" : ""}">${r && r.promotion ? `Promoted to the ${esc(r.promotion)}!` : r ? "Your club · new deal offered" : "Your club"}</div>
+          <h3>${esc(stay.clubName)}</h3>
+          <div class="lg">${esc(stay.league)}</div>
+          <dl><dt>Expected role</dt><dd class="role-${stay.role}">${stay.role}</dd>
+            ${r ? `<dt>New contract</dt><dd>${esc(r.wageText)}</dd><dt>Length</dt><dd>${r.years} years</dd>
+            ${r.promise ? `<dt>Promised role</dt><dd class="role-${r.promise}">${r.promise}</dd>` : ""}
+            ${r.level ? `<dt>Your contribution</dt><dd class="up">${esc(r.level.replace(/^./, (c) => c.toUpperCase()))}</dd>` : ""}
+            <dt>Market value</dt><dd class="up">${esc(r.boostText)}</dd>` : `<dt>Market value</dt><dd>No change</dd>`}</dl>
+          <button class="btn btn-ghost" type="button" data-pick="-1">Stay</button></div>` : "";
+      el.innerHTML = `<div class="offers-head">${esc(label)}<small>Your market value: ${E.money(value)}. ${stay ? "Sign for one of them or stay where you are." : "Pick one to keep your career going."}</small></div>
+        <div class="offer-list">${offers.map(card).join("")}${stayCard}</div>`;
+      el.hidden = false;
+      el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "nearest" });
+      pending = { resolve, offers, stay };
+      el.querySelector("[data-pick]").focus({ preventScroll: true });
+    });
+  }
+  let pending = null;
+  $("offers").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-pick]"); if (!b || !pending) return;
+    const { resolve } = pending; pending = null;
+    $("offers").hidden = true;
+    resolve(+b.dataset.pick);
+  });
+
+  // ----- career rendering -----
+  let player = null, keeper = false, prevValue = null;
+  const BAD_RE = /injur|strain|sprain|concussion|dislocat|metatarsal|poor season|quiet season|traitor|fell out|lost your way|is gone|turned on you|couldn't find|no offers|released|never won|bench/i;
+  const GOOD_RE = /dream|promoted from|earned a starting|broke into|took your chance|promised|breakout|bloomer|season of your life|unstoppable|redemption|fully fit|captain|legend|favourite|icon|hat-trick|saved a penalty|trained with|debut|promoted|new deal|signed|standout|back home/i;
+  const tone = (t) => (BAD_RE.test(t) ? "bad" : GOOD_RE.test(t) ? "good" : "");
+  function status(rec, club, age) {
+    $("ovr").textContent = rec.player.rating;
+    $("whoNow").textContent = `Age ${age} · ${club.name} · ${club.league.name}`;
+    $("tApps").textContent = rec.totals.apps;
+    $("tGoals").textContent = keeper ? rec.totals.cleanSheets : rec.totals.goals;
+    $("tAssists").textContent = rec.totals.assists;
+    $("tTrophies").textContent = rec.trophies.length;
+    if (rec.marketValue) $("whoValue").textContent = `Market value ${E.money(rec.marketValue())}${rec.player.wage ? ` · earning ${E.money(rec.player.wage)} a year` : ""}`;
+  }
+  function season(s, rec) {
+    const li = document.createElement("li");
+    li.className = "row" + (s.youth ? " youth" : "");
+    const statBits = [`<span><b>${s.apps}</b> apps</span>`];
+    if (keeper) statBits.push(`<span><b>${s.cleanSheets}</b> clean sheets</span>`);
+    else statBits.push(`<span><b>${s.goals}</b> goals</span>`);
+    statBits.push(`<span><b>${s.assists}</b> assists</span>`, `<span><b>${s.avg}</b> avg</span>`, `<span>OVR <b>${s.rating}</b></span>`);
+    if (s.value !== undefined) {
+      let d = "";
+      if (prevValue !== null && Math.abs(s.value - prevValue) >= Math.max(0.05, prevValue * 0.02)) {
+        const up = s.value > prevValue;
+        d = ` <span class="delta ${up ? "good" : "bad"}">${up ? "▲ +" : "▼ −"}${E.money(Math.abs(s.value - prevValue))}</span>`;
+      }
+      statBits.push(`<span>Value <b>${E.money(s.value)}</b>${d}</span>`);
+      prevValue = s.value;
+    }
+    const formBadge = s.form === "poor" ? `<span class="badge poor">Poor season</span>` : s.form === "hot" ? `<span class="badge hot">Hot streak</span>`
+      : s.perf >= 0.6 ? `<span class="badge hot">Standout season</span>` : s.perf <= -0.6 ? `<span class="badge poor">Quiet season</span>` : "";
+    const traitorBadge = s.traitor ? `<span class="badge poor">Traitor</span>` : "";
+    const injBadge = s.injury ? `<span class="badge poor">Injured · ${s.injury.weeks < 13 ? s.injury.weeks + " wks" : "3 months"}</span>` : "";
+    const badges = traitorBadge + formBadge + injBadge + s.trophies.map((t) => `<span class="badge trophy">${esc(t)}</span>`)
+      .concat(s.awards.map((a) => `<span class="badge award">${esc(a)}</span>`)).join("");
+    const move = s.move ? `<div class="move ${tone(s.move.type)}">${esc(s.move.type)}${s.move.fee ? " · " + esc(s.move.fee) : ""}</div>` : "";
+    li.innerHTML = `${move}
+      <div class="row-top"><div class="row-club"><b>${esc(s.club)}</b><small>${esc(s.league)} · ${s.youth ? "Academy" : esc(s.role)}</small></div>
+      <div class="row-when"><b>${s.season}</b>Age ${s.age}</div></div>
+      <div class="row-stats">${statBits.join("")}</div>
+      ${badges ? `<div class="badges">${badges}</div>` : ""}
+      ${s.events.length ? `<ul class="events">${s.events.map((e) => `<li class="${tone(e)}">${esc(e)}</li>`).join("")}</ul>` : ""}`;
+    $("timeline").prepend(li);
+    status(rec, { name: s.club, league: { name: s.league.replace(/ U18$/, "") } }, s.age);
+    $("whoNow").textContent = `Age ${s.age} · ${s.club}${s.youth ? " academy" : ""}`;
+    return sleep(fast ? 0 : reduced ? 250 : 750);
+  }
+  function managerLine(rec) {
+    const m = rec.manager;
+    if (!m) return "";
+    if (!m.became) return `${m.role}. ${m.line}`;
+    return `${m.verdict} · ${m.years} years, ${m.stints.length} club${m.stints.length > 1 ? "s" : ""}, ${m.total} trophies, ${m.winPct}% wins`;
+  }
+  function managerHtml(rec) {
+    const m = rec.manager;
+    if (!m) return "";
+    if (!m.became) return `<div><div class="legend">After retiring</div><p class="wc-line">${esc(m.role)}</p><p class="hint" style="margin:2px 0 0">${esc(m.line)}</p></div>`;
+    const stints = m.stints.map((st) => `<li><b>${esc(st.club)}</b> <span class="hint">${esc(st.league)} · ${st.from}–${st.to} · ${st.winPct}% wins${st.won ? ` · ${st.won} troph${st.won > 1 ? "ies" : "y"}` : ""}</span></li>`).join("");
+    const tro = m.trophies.length ? `<div class="cabinet">${m.trophies.map((t) => `<div class="cab"><span>${esc(t.name)}</span><b>${t.n}</b></div>`).join("")}</div>` : `<p class="hint">No trophies as a manager.</p>`;
+    return `<div class="mgr"><div class="legend">Manager career</div>
+      <h3 class="mgr-verdict">${esc(m.verdict)}</h3>
+      <p class="hint" style="margin:0">${esc(m.line)} ${m.years} years in the dugout from age ${m.startAge}, ${m.winPct}% of ${m.games} games won.</p>
+      <ul class="mgr-stints">${stints}</ul>${tro}</div>`;
+  }
+  function wcText(rec) {
+    const wc = rec.worldCups, won = wc.filter((w) => w.won);
+    if (!wc.length) return "Never made a World Cup squad";
+    const years = wc.map((w) => w.year + (w.won ? " (won)" : "")).join(", ");
+    if (!won.length) return `Played ${wc.length} World Cup${wc.length > 1 ? "s" : ""} (${years}). Never won one`;
+    return `World Cup winner ×${won.length}. Played ${wc.length}: ${years}`;
+  }
+  // ----- share card -----
+  const MAJOR_RANK = (k) => k === "World Cup" ? 0 : k === "Ballon d'Or" ? 1 : k === "Champions League" ? 2
+    : /Libertadores|AFC Champions|CONCACAF/.test(k) ? 3 : k === "Europa League" ? 4 : k.endsWith(" title") ? 5
+    : k === "Domestic cup" ? 6 : 7;
+  function honours(rec) {
+    const counts = new Map();
+    const add = (k) => counts.set(k, (counts.get(k) || 0) + 1);
+    for (const t of rec.trophies) if (t.name !== "Lower-league cup") add(t.name);
+    for (const a of rec.awards) if (a.name === "Ballon d'Or" || / Golden (Boot|Glove)$/.test(a.name)) add(a.name);
+    return [...counts.entries()].map(([name, n]) => ({ name, n }))
+      .sort((a, b) => MAJOR_RANK(a.name) - MAJOR_RANK(b.name) || b.n - a.n);
+  }
+  function careerYears(rec) {
+    const first = rec.seasons[0].year, last = rec.seasons[rec.seasons.length - 1].year + 1;
+    return `${first}–${last}`;
+  }
+  function shareText(rec) {
+    const S = rec.summary, hs = honours(rec);
+    return [
+      `${rec.name.toUpperCase()} · ${S.verdict} (${S.score}/100)`,
+      `${rec.pos.name} · ${rec.continent.name} · ${careerYears(rec)}`,
+      keeper ? `${rec.totals.cleanSheets} clean sheets · ${rec.totals.assists} assists in ${rec.totals.apps} apps`
+        : `${rec.totals.goals} goals · ${rec.totals.assists} assists in ${rec.totals.apps} apps`,
+      `Final market value ${E.money(rec.finalValue)} (peak ${E.money(rec.peakValue)})`,
+      hs.length ? "Honours: " + hs.map((h) => `${h.n}× ${h.name}`).join(", ") : "Honours: none",
+      ...S.legends.map((l) => `${l} legend`),
+      rec.manager ? `After retiring: ${managerLine(rec)}` : "",
+      "Can you beat my career on Football Career Sim?",
+    ].filter(Boolean).join("\n");
+  }
+  async function fontsReady() {
+    try {
+      await Promise.all(['900 100px "Big Shoulders Display"', '700 40px "Barlow Condensed"', '600 40px "Barlow Condensed"',
+        '500 40px "Barlow"', '600 40px "Barlow"'].map((f) => document.fonts.load(f)));
+    } catch (e) { /* fall back to system fonts */ }
+  }
+  async function drawCard(rec) {
+    await fontsReady();
+    const W = 1080, H = 1350, PAD = 80, IN = W - PAD * 2;
+    const c = document.createElement("canvas"); c.width = W; c.height = H;
+    const x = c.getContext("2d");
+    const S = rec.summary;
+    const D = (n) => `900 ${n}px "Big Shoulders Display", "Arial Narrow", Impact, sans-serif`;
+    const L = (n, w = 700) => `${w} ${n}px "Barlow Condensed", "Arial Narrow", sans-serif`;
+    const B = (n, w = 500) => `${w} ${n}px "Barlow", "Segoe UI", sans-serif`;
+    const sp = (v) => { if ("letterSpacing" in x) x.letterSpacing = v; };
+    const fit = (text, font, max, start, min) => {
+      let n = start;
+      for (; n > min; n -= 2) { x.font = font(n); if (x.measureText(text).width <= max) break; }
+      x.font = font(n);
+    };
+    const WHITE = "#FFFFFF", GREY = "#8C8C8C", RULE = "#2B2B2B";
+    const rule = (y) => { x.fillStyle = RULE; x.fillRect(PAD, y, IN, 2); };
+    const label = (t, y, xx = PAD) => { x.fillStyle = GREY; x.font = L(28); sp("6px"); x.fillText(t, xx, y); sp("0px"); };
+
+    x.fillStyle = "#0A0A0A"; x.fillRect(0, 0, W, H);
+    x.fillStyle = "rgba(255,255,255,0.04)";
+    for (let yy = 6; yy < H; yy += 12) for (let xx = 6; xx < W; xx += 12) x.fillRect(xx, yy, 2, 2);
+    x.textBaseline = "alphabetic";
+
+    label("FOOTBALL CAREER SIM", 110);
+    x.textAlign = "right"; label("CAN YOU BEAT IT?", 110, W - PAD); x.textAlign = "left";
+
+    const name = rec.name.toUpperCase();
+    x.fillStyle = WHITE; fit(name, D, IN, 124, 56); x.fillText(name, PAD, 240);
+    x.fillStyle = GREY; sp("2px");
+    const meta = `${rec.pos.name} · ${rec.continent.name} · ${careerYears(rec)}`.toUpperCase();
+    fit(meta, (n) => L(n, 600), IN, 34, 22); x.fillText(meta, PAD, 292); sp("0px");
+    rule(326);
+
+    label("CAREER VERDICT", 390);
+    const verdict = S.verdict.toUpperCase();
+    x.fillStyle = WHITE; fit(verdict, D, IN, 150, 70); x.fillText(verdict, PAD, 526);
+    x.font = D(84); x.fillText(String(S.score), PAD, 632);
+    const sw = x.measureText(String(S.score)).width;
+    x.fillStyle = GREY; x.font = L(34, 600); sp("3px"); x.fillText("/ 100  CAREER SCORE", PAD + sw + 20, 632); sp("0px");
+    rule(672);
+
+    const stats = [
+      [keeper ? rec.totals.cleanSheets : rec.totals.goals, keeper ? "CLEAN SHEETS" : "GOALS"],
+      [rec.totals.assists, "ASSISTS"],
+      [E.money(rec.finalValue), "FINAL VALUE"],
+    ];
+    const cw = IN / 3;
+    stats.forEach(([v, l], i) => {
+      const cx = PAD + i * cw;
+      x.fillStyle = WHITE; fit(String(v), D, cw - 28, 110, 56); x.fillText(String(v), cx, 796);
+      label(l, 840, cx);
+    });
+    x.fillStyle = GREY;
+    const sub = `${rec.totals.apps} appearances · peak value ${E.money(rec.peakValue)} · peak OVR ${rec.player.peak}`;
+    fit(sub, (n) => B(n), IN, 30, 20); x.fillText(sub, PAD, 890);
+    rule(922);
+
+    label("MAJOR HONOURS", 980);
+    const hs = honours(rec), MAX = 3;
+    let y = 1034;
+    if (!hs.length) { x.fillStyle = WHITE; x.font = B(34, 600); x.fillText("No major honours. It happens.", PAD, y); }
+    const shown = hs.length > MAX ? hs.slice(0, MAX - 1) : hs;
+    for (const h of shown) {
+      x.fillStyle = WHITE; x.font = D(44); x.fillText(`${h.n}×`, PAD, y);
+      fit(h.name, (n) => B(n, 600), IN - 100, 36, 24); x.fillText(h.name, PAD + 100, y);
+      y += 50;
+    }
+    if (hs.length > MAX) { x.fillStyle = GREY; x.font = B(30); x.fillText(`+ ${hs.length - shown.length} more`, PAD + 100, y); }
+    rule(1158);
+
+    const m = rec.manager;
+    label("AFTER RETIRING", 1216);
+    if (m) {
+      const head = (m.became ? m.verdict : m.role).toUpperCase();
+      x.fillStyle = WHITE; fit(head, D, IN, 64, 36); x.fillText(head, PAD, 1280);
+      const detail = m.became ? `${m.years} years as a manager · ${m.stints.length} club${m.stints.length > 1 ? "s" : ""} · ${m.total} trophies · ${m.winPct}% wins` : m.line;
+      x.fillStyle = GREY; fit(detail, (n) => B(n), IN, 30, 20); x.fillText(detail, PAD, 1318);
+    }
+    return c;
+  }
+
+  function finish(rec) {
+    const S = rec.summary, p = rec.player;
+    $("reelLabel").textContent = `Full time · ${rec.ended}`;
+    show(S.verdict, `Career score ${S.score} / 100`);
+    $("midActions").hidden = true;
+    const counts = {};
+    for (const t of rec.trophies) counts[t.name] = (counts[t.name] || 0) + 1;
+    for (const a of rec.awards) counts[a.name] = (counts[a.name] || 0) + 1;
+    const path = rec.moves.filter((m, i, a) => i === 0 || m.club !== a[i - 1].club)
+      .map((m) => `<span>${esc(m.club)}</span>`).join("");
+
+    const el = $("summary");
+    el.innerHTML = `
+      <div class="verdict-kicker">${esc(rec.name)} · ${esc(rec.ended)}</div>
+      <h2 class="verdict">${esc(S.verdict)}</h2>
+      <p class="verdict-line">${esc(S.line)}</p>
+      <div class="score"><b>${S.score}</b><span>career score out of 100</span><b>${p.peak}</b><span>peak OVR · ceiling was ${p.ceiling}</span></div>
+      <div class="score"><b>${E.money(rec.peakValue)}</b><span>peak market value</span><b>${E.money(rec.earnings)}</b><span>career earnings</span></div>
+      ${S.legends.length || S.traitorTo.length ? `<div class="badges">${S.legends.map((l) => `<span class="badge award">${esc(l)} legend</span>`).join("")}${S.traitorTo.map((t) => `<span class="badge poor">Traitor to ${esc(t)}</span>`).join("")}</div>` : ""}
+      <div><div class="legend">Career path</div><div class="path">${path}</div></div>
+      <div><div class="legend">Trophy cabinet</div>${Object.keys(counts).length ? `<div class="cabinet">${Object.entries(counts)
+        .map(([k, n]) => `<div class="cab"><span>${esc(k)}</span><b>${n}</b></div>`).join("")}</div>` : `<p class="hint">An empty cabinet. It happens.</p>`}</div>
+      <div><div class="legend">World Cups · ${esc(rec.continent.name)}</div><p class="wc-line">${esc(wcText(rec))}</p></div>
+      ${managerHtml(rec)}
+      <div class="sum-actions">
+        <button class="btn btn-primary" id="shareBtn" type="button">Share career</button>
+        <button class="btn btn-ghost" id="againBtn" type="button">New career</button>
+        <button class="btn btn-ghost" id="replayBtn" type="button">Same player, new career</button>
+      </div>
+      <div class="share-panel" id="sharePanel" hidden>
+        <div class="legend">Your share card</div>
+        <img id="shareImg" alt="">
+        <p class="hint">Press and hold the card, or right-click it, to save the image.</p>
+        <div class="sum-actions">
+          <button class="btn btn-primary" id="shareNative" type="button" ${navigator.share ? "" : "hidden"}>Share</button>
+          <button class="btn btn-ghost" id="copyCard" type="button">Copy card</button>
+          <button class="btn btn-ghost" id="copyStats" type="button">Copy stats as text</button>
+        </div>
+        <p class="hint" id="shareMsg" hidden></p>
+        <textarea class="copy-box" id="copyBox" readonly hidden></textarea>
+      </div>`;
+    el.hidden = false;
+    el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    $("againBtn").addEventListener("click", reset);
+    $("replayBtn").addEventListener("click", () => start(false));
+    let card = null, cardBlob = null;
+    const shareMsg = (t) => { $("shareMsg").textContent = t; $("shareMsg").hidden = false; };
+    $("shareBtn").addEventListener("click", async () => {
+      $("shareBtn").disabled = true;
+      $("shareBtn").textContent = "Making your card…";
+      try {
+        card = await drawCard(rec);
+        cardBlob = await new Promise((r) => card.toBlob(r, "image/png"));
+        const img = $("shareImg");
+        img.src = card.toDataURL("image/png");
+        const hs = honours(rec);
+        img.alt = `${rec.name}: ${S.verdict}, ${S.score} out of 100. ${keeper ? rec.totals.cleanSheets + " clean sheets" : rec.totals.goals + " goals"}, `
+          + `${rec.totals.assists} assists, final value ${E.money(rec.finalValue)}. ${hs.length ? hs.map((h) => `${h.n} ${h.name}`).join(", ") : "No major honours"}.`;
+      } catch (err) {
+        shareMsg("The card image couldn't be made here. You can still copy your stats.");
+      }
+      $("sharePanel").hidden = false;
+      $("shareBtn").textContent = "Share career";
+      $("shareBtn").disabled = false;
+      $("sharePanel").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    });
+    $("shareNative").addEventListener("click", async () => {
+      const text = shareText(rec);
+      try {
+        const blob = card && await new Promise((r) => card.toBlob(r, "image/png"));
+        const file = blob && new File([blob], "football-career-sim.png", { type: "image/png" });
+        if (file && navigator.canShare && navigator.canShare({ files: [file] })) await navigator.share({ files: [file], text });
+        else await navigator.share({ text });
+      } catch (err) {
+        if (err && err.name === "AbortError") return;
+        shareMsg("Sharing isn't available here. Save the card image or copy your stats instead.");
+      }
+    });
+    $("copyCard").addEventListener("click", async () => {
+      const text = shareText(rec);
+      try {
+        if (!cardBlob || !window.ClipboardItem || !navigator.clipboard || !navigator.clipboard.write) throw new Error("no image clipboard");
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": cardBlob, "text/plain": new Blob([text], { type: "text/plain" }) })]);
+        $("copyCard").textContent = "Card copied";
+        shareMsg("Card copied. Paste it into a message, a story or a post.");
+      } catch (err) {
+        try { await navigator.clipboard.writeText(text); $("copyCard").textContent = "Copied as text"; }
+        catch (e2) { const box = $("copyBox"); box.hidden = false; box.value = text; box.select(); }
+        shareMsg("This browser wouldn't copy the image, so your stats were copied as text. Press and hold the card to save the image instead.");
+      }
+    });
+    $("copyStats").addEventListener("click", async () => {
+      const text = shareText(rec);
+      try { await navigator.clipboard.writeText(text); $("copyStats").textContent = "Copied"; }
+      catch (err) { const box = $("copyBox"); box.hidden = false; box.value = text; box.focus(); box.select(); $("copyStats").textContent = "Select and copy below"; }
+    });
+    return Promise.resolve();
+  }
+
+  function reset() {
+    $("game").hidden = true;
+    $("setup").hidden = false;
+    $("reelLabel").textContent = "Kick-off · Pick your player below";
+    show("Your career starts here", "564 clubs · 30 leagues · 40 academies");
+    $("setup").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+  }
+
+  async function start(fromForm) {
+    if (fromForm) {
+      const name = $("pName").value.trim();
+      if (!name) { $("setupError").textContent = "Type a player name to start."; $("setupError").hidden = false; $("pName").focus(); return; }
+      $("setupError").hidden = true;
+      player = { name, pos: posId(), continent: setup.continent, league: setup.league, dream: setup.dream };
+    }
+    keeper = E.POSITIONS.find((p) => p.id === player.pos).keeper;
+    fast = false;
+    $("setup").hidden = true;
+    $("game").hidden = false;
+    $("summary").hidden = true;
+    $("midActions").hidden = false;
+    $("timeline").innerHTML = "";
+    prevValue = null;
+    $("tGoalsLbl").textContent = keeper ? "Clean sheets" : "Goals";
+    $("whoName").textContent = player.name;
+    const pos = E.POSITIONS.find((p) => p.id === player.pos);
+    $("whoMeta").textContent = `${pos.name} · ${E.CONTINENTS[player.continent].name}`;
+    $("ovr").textContent = "--";
+    $("whoValue").textContent = "";
+    $("offers").hidden = true;
+    $("whoNow").textContent = "Age 15 · Waiting for the academy draw";
+    ["tApps", "tGoals", "tAssists", "tTrophies"].forEach((id) => ($(id).textContent = "0"));
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    const seed = E.hashSeed(player.name + "|" + Date.now() + "|" + Math.random());
+    await E.runCareer(player, W, seed, { spin, season, choose, offers: offersShown, status: (rec, club, age) => status(rec, club, age), finish });
+  }
+
+  $("setup").addEventListener("submit", (e) => { e.preventDefault(); start(true); });
+  $("skipBtn").addEventListener("click", () => {
+    fast = true; stopFn && stopFn();
+    if (pending) { const { resolve, offers, stay } = pending; pending = null; $("offers").hidden = true; resolve(autoPick(offers, stay)); }
+  });
+})();
+</script>
